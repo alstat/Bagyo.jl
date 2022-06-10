@@ -3,9 +3,9 @@ using Bagyo
 
 makedocs(
     sitename = "Bagyo.jl",
-    # format = Documenter.HTML(
-    #     assets = ["assets/favicon.ico"]
-    # ),
+    format = Documenter.HTML(
+        assets = ["assets/favicon.ico"]
+    ),
     authors = "Al-Ahmadgaid B. Asaad",
     modules = [Bagyo],
     pages = [
