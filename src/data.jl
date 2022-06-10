@@ -64,7 +64,7 @@ Delete the local JMAData Best Track files/folders
 """
 function Base.delete!(::Type{BestTrack{JMAData}})
     try
-        rm(JMA_DB, recursive=true)
+        rm(JMA_BST_DB, recursive=true)
         @info "JMA Best Track DB successfully deleted."
     catch
         @info "Skipping: Skipping deletion of JMA Best Track DB since it does not exists."
