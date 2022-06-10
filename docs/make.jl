@@ -9,7 +9,8 @@ makedocs(
     authors = "Al-Ahmadgaid B. Asaad",
     modules = [Bagyo],
     pages = [
-        "Home" => "index.md"
+        "Home" => "index.md",
+        "API" => "api.md"
     ]
 )
 
