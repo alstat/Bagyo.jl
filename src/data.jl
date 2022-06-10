@@ -53,7 +53,7 @@ function Base.delete!(::Type{JMAData})
         rm(JMA_DB, recursive=true)
         @info "JMA DB successfully deleted."
     catch
-        throw("Some problem occurred, cannot delete.")
+        @info "Skipping: Skipping deletion of JMA DB since it does not exists."
     end
 end
 
@@ -67,7 +67,7 @@ function Base.delete!(::Type{BestTrack{JMAData}})
         rm(JMA_DB, recursive=true)
         @info "JMA Best Track DB successfully deleted."
     catch
-        throw("Some problem occurred, cannot delete.")
+        @info "Skipping: Skipping deletion of JMA Best Track DB since it does not exists."
     end
 end
 

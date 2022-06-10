@@ -4,6 +4,7 @@ This section will discuss the process of downloading and loading the JMA Best Tr
 ## Downloading
 To download the JMA Best Track data, we run the following:
 ```@repl abc
+using Bagyo
 bst = BestTrack(JMAData())
 download(bst)
 ```
