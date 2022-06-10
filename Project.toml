@@ -1,6 +1,6 @@
 name = "Bagyo"
 uuid = "c1840010-6abe-498f-b4fc-b06597083ddc"
-authors = ["al-ahmadgaidasaad <alahmadgaid@gmail.com>"]
+authors = ["Al-Ahmadgaid B. Asaad"]
 version = "0.1.0"
 
 [deps]
@@ -13,3 +13,7 @@ ZipFile = "a5390f91-8eb1-5f08-bee0-b1d1ffed6cea"
 
 [compat]
 julia = "1.6.0"
+CSV = "0.10.4"
+DataFrames = "1.3.4"
+HTTP = "0.9.17"
+ZipFile = "0.9.4"
