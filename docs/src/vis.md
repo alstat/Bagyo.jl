@@ -10,5 +10,5 @@ meta, data = BestTrack{JMAData} |> load;
 plot(BestTrack{JMAData}, data)
 ```
 ```@raw html
-<img width="60%" src="assets/jma_bst.png"/>
+<img width="60%" src="https://github.com/alstat/Bagyo.jl/raw/master/docs/src/assets/jma_bst.png"/>
 ```
