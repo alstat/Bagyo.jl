@@ -136,8 +136,8 @@ function Base.parse(::Type{BestTrack{JMAData}}; file::Union{Nothing,String}=noth
     raw_data = raw[.!indcs]
     numlines = vcat([0], num_lines)
 
-    int_id = Union{Missing,String}[]; datetime = Union{Missing,String}[]; yy = Union{Missing,String}[];
-    mm = Union{Missing,String}[]; dd = Union{Missing,String}[]; hh = Union{Missing,String}[]; storm_name = Union{Missing,String}[]; tygrade = Union{Missing,Int64}[];
+    int_id = Union{Missing,String}[]; datetime = Union{Missing,DateTime}[]; yy = Union{Missing,Int64}[];
+    mm = Union{Missing,Int64}[]; dd = Union{Missing,Int64}[]; hh = Union{Missing,Int64}[]; storm_name = Union{Missing,String}[]; tygrade = Union{Missing,Int64}[];
     lat = Union{Missing,Float64}[]; long = Union{Missing,Float64}[]; pressure = Union{Missing,Float64}[]; speed = Union{Missing,Float64}[];
     rad50_dir = Union{Missing,Int64}[]; long_rad50 = Union{Missing,Float64}[]; short_rad50 = Union{Missing,Float64}[];
     rad30_dir = Union{Missing,Int64}[]; long_rad30 = Union{Missing,Float64}[]; short_rad30 = Union{Missing,Float64}[];
@@ -150,14 +150,14 @@ function Base.parse(::Type{BestTrack{JMAData}}; file::Union{Nothing,String}=noth
             tydata = raw_data[i]
             push!(int_id, intern_id[nl-1])
             if parse(Int64, tydata[1:2]) < 30
-                push!(yy, "20" * tydata[1:2])
+                push!(yy, parse(Int64, "20" * tydata[1:2]))
             else
-                push!(yy, "19" * tydata[1:2])
+                push!(yy, parse(Int64, "19" * tydata[1:2]))
             end        
-            push!(mm, tydata[3:4])
-            push!(dd, tydata[5:6])
-            push!(hh, tydata[7:8])
-            push!(datetime, tydata[1:8])
+            push!(mm, parse(Int64, tydata[3:4]))
+            push!(dd, parse(Int64, tydata[5:6]))
+            push!(hh, parse(Int64, tydata[7:8]))
+            push!(datetime, DateTime(yy[end], mm[end], dd[end], hh[end]))
             push!(storm_name, stormname[nl-1])
             try
                 push!(tygrade, parse(Int64, tydata[14]))
