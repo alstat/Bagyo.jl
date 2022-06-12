@@ -3,9 +3,9 @@
 │   source = &quot;https://www.jma.go.jp/jma/jma-eng/jma-center/rsmc-hp-pub-eg/Besttracks/bst_all.zip&quot;
 │   dest = &quot;/home/runner/work/Bagyo.jl/Bagyo.jl/src/../db/jma/bst/bst_all.zip&quot;
 │   progress = 1.0
-│   time_taken = &quot;0.08 s&quot;
+│   time_taken = &quot;0.12 s&quot;
 │   time_remaining = &quot;0.0 s&quot;
-│   average_speed = &quot;8.816 MiB/s&quot;
+│   average_speed = &quot;6.080 MiB/s&quot;
 │   downloaded = &quot;722.181 KiB&quot;
 │   remaining = &quot;0 bytes&quot;
 └   total = &quot;722.181 KiB&quot;
@@ -35,25 +35,25 @@
  1855 │             2121               23              28          0    missin
  1856 │             2122               39              29          0    missin
                                                  3 columns and 1841 rows omitted</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; data</code><code class="nohighlight hljs ansi" style="display:block;">67891×19 DataFrame
-   Row │ international_id  date_time  year   month  day    hour   storm_name   ⋯
-       │ Int64             Int64      Int64  Int64  Int64  Int64  String15     ⋯
+   Row │ international_id  date_time            year   month  day    hour   st ⋯
+       │ Int64             DateTime             Int64  Int64  Int64  Int64  St ⋯
 ───────┼────────────────────────────────────────────────────────────────────────
-     1 │             5101   51021906   1951      2     19      6  missing      ⋯
-     2 │             5101   51021912   1951      2     19     12  missing
-     3 │             5101   51021918   1951      2     19     18  missing
-     4 │             5101   51022000   1951      2     20      0  missing
-     5 │             5101   51022006   1951      2     20      6  missing      ⋯
-     6 │             5101   51022012   1951      2     20     12  missing
-     7 │             5101   51022018   1951      2     20     18  missing
-     8 │             5101   51022100   1951      2     21      0  missing
-   ⋮   │        ⋮              ⋮        ⋮      ⋮      ⋮      ⋮        ⋮        ⋱
- 67885 │             2122   21121918   2021     12     19     18  RAI          ⋯
- 67886 │             2122   21122000   2021     12     20      0  RAI
- 67887 │             2122   21122006   2021     12     20      6  RAI
- 67888 │             2122   21122012   2021     12     20     12  RAI
- 67889 │             2122   21122018   2021     12     20     18  RAI          ⋯
- 67890 │             2122   21122100   2021     12     21      0  RAI
- 67891 │             2122   21122106   2021     12     21      6  RAI
-                                               12 columns and 67876 rows omitted</code></pre><h2 id="Deleting-Local-DB"><a class="docs-heading-anchor" href="#Deleting-Local-DB">Deleting Local DB</a><a id="Deleting-Local-DB-1"></a><a class="docs-heading-anchor-permalink" href="#Deleting-Local-DB" title="Permalink"></a></h2><p>To delete the local DB for storing the downloaded files, run the following:</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; # delete only the Best Track of JMAData folders and files
+     1 │             5101  1951-02-19T06:00:00   1951      2     19      6  mi ⋯
+     2 │             5101  1951-02-19T12:00:00   1951      2     19     12  mi
+     3 │             5101  1951-02-19T18:00:00   1951      2     19     18  mi
+     4 │             5101  1951-02-20T00:00:00   1951      2     20      0  mi
+     5 │             5101  1951-02-20T06:00:00   1951      2     20      6  mi ⋯
+     6 │             5101  1951-02-20T12:00:00   1951      2     20     12  mi
+     7 │             5101  1951-02-20T18:00:00   1951      2     20     18  mi
+     8 │             5101  1951-02-21T00:00:00   1951      2     21      0  mi
+   ⋮   │        ⋮                   ⋮             ⋮      ⋮      ⋮      ⋮       ⋱
+ 67885 │             2122  2021-12-19T18:00:00   2021     12     19     18  RA ⋯
+ 67886 │             2122  2021-12-20T00:00:00   2021     12     20      0  RA
+ 67887 │             2122  2021-12-20T06:00:00   2021     12     20      6  RA
+ 67888 │             2122  2021-12-20T12:00:00   2021     12     20     12  RA
+ 67889 │             2122  2021-12-20T18:00:00   2021     12     20     18  RA ⋯
+ 67890 │             2122  2021-12-21T00:00:00   2021     12     21      0  RA
+ 67891 │             2122  2021-12-21T06:00:00   2021     12     21      6  RA
+                                               13 columns and 67876 rows omitted</code></pre><h2 id="Deleting-Local-DB"><a class="docs-heading-anchor" href="#Deleting-Local-DB">Deleting Local DB</a><a id="Deleting-Local-DB-1"></a><a class="docs-heading-anchor-permalink" href="#Deleting-Local-DB" title="Permalink"></a></h2><p>To delete the local DB for storing the downloaded files, run the following:</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; # delete only the Best Track of JMAData folders and files
        delete!(BestTrack{JMAData})</code><code class="nohighlight hljs ansi" style="display:block;">[ Info: JMA Best Track DB successfully deleted.</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; # delete all JMAData folders and files
-       delete!(JMAData)</code><code class="nohighlight hljs ansi" style="display:block;">[ Info: JMA DB successfully deleted.</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../">« Home</a><a class="docs-footer-nextpage" href="../api/">API »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.19 on <span class="colophon-date" title="Saturday 11 June 2022 15:38">Saturday 11 June 2022</span>. Using Julia version 1.7.3.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+       delete!(JMAData)</code><code class="nohighlight hljs ansi" style="display:block;">[ Info: JMA DB successfully deleted.</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../">« Home</a><a class="docs-footer-nextpage" href="../api/">API »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.19 on <span class="colophon-date" title="Sunday 12 June 2022 02:29">Sunday 12 June 2022</span>. Using Julia version 1.7.3.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
