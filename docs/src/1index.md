@@ -15,9 +15,9 @@ julia> Pkg.add("Bagyo")
 ## Outline
 ```@contents
 Pages = [
-    "data.md",
-    "vis.md"
-    "api.md"
+    "2data.md",
+    "3vis.md"
+    "4api.md"
 ]
 Depth = 2
 ```
