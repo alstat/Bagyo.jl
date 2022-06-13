@@ -10,7 +10,7 @@ makedocs(
     modules = [Bagyo],
     pages = [
         "Home" => "index.md",
-        "Data" => "data.md",
+        "Data Extraction" => "data.md",
         "API" => "api.md"
     ]
 )
