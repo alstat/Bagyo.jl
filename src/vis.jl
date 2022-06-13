@@ -1,6 +1,5 @@
 using CairoMakie
 using Colors
-using Downloads
 using GeoInterface
 using GeoJSON
 using GeoMakie

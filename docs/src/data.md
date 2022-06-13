@@ -20,14 +20,14 @@ meta, data = load(BestTrack, :jma);
 meta
 data
 ```
-Note that JMA returns two datasets, the `meta`data which contains the information about the columns of the `data`.
+Note that JMA returns two datasets, the `meta`data which contains the information about the storm, whose data is given by the `data` object above. For the description of the columns, please refer to [JMA documentation](https://www.jma.go.jp/jma/jma-eng/jma-center/rsmc-hp-pub-eg/Besttracks/e_format_bst.html).
 
 As for IBTrACS, we only have one data.
 ```@repl abc
 data = load(BestTrack, :ibtracs);
 data
 ```
-Please refer to [IBTrACS documentation](https://www.ncei.noaa.gov/sites/default/files/2021-07/IBTrACS_v04_column_documentation.pdf) for the metadata of the columns of the data above.
+Please refer to [IBTrACS documentation](https://www.ncei.noaa.gov/sites/default/files/2021-07/IBTrACS_v04_column_documentation.pdf) for the description of the columns of the data above.
 
 ## Deleting Local DB
 The downloaded data are saved in the local directory of your machine, and we have the following APIs for deleting the data.

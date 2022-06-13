@@ -2,10 +2,10 @@ module Bagyo
 
 include("constants.jl")
 include("utils.jl")
-include("data.jl")
-# include("vis.jl")
+include("tracks_data.jl")
+include("poly_data.jl")
 
 export delete!, load, get
-export JMAData, BestTrack
+export BestTrack, CountryPoly
 
 end # module

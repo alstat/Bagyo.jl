@@ -31,8 +31,10 @@ Download the BestTrack data.
 function Base.get(::Type{BestTrack}, data::Symbol)
     if data == :jma
         download(BestTrack(JMAData()))
-    else data == :ibtracs
+    elseif data == :ibtracs
         download(BestTrack(IBTrACSData()))
+    else
+        throw("Unknown input data, choices are :jma and :ibtracs")
     end
 end
 
@@ -96,7 +98,7 @@ end
 function Base.delete!(::Type{IBTrACSData})
     try
         rm(IBTRACS_DB, recursive=true)
-        @info "IBTrACSData DB successfully deleted."
+        @info "IBTrACS DB successfully deleted."
     catch
         @info "Skipping deletion of IBTrACSData DB since it does not exists."
     end
@@ -105,7 +107,7 @@ end
 function Base.delete!(::Type{BestTrack{IBTrACSData}})
     try
         rm(IBTRACS_BT_DB, recursive=true)
-        @info "IBTrACSData Best Track DB successfully deleted."
+        @info "IBTrACS Best Track DB successfully deleted."
     catch
         @info "Skipping deletion of IBTrACSData Best Track DB since it does not exists."
     end
@@ -219,7 +221,7 @@ function parse_track(::Type{BestTrack{JMAData}}; file::Union{Nothing,String}=not
     end
     typhoon_meta = DataFrame([
         intern_id, num_lines, cyclnenum, last_flag, time_diff, stormname, date_time],
-        [:international_id, :number_of_lines, :cyclone_number, :last_flag, :time_diff, :storm_name, :date_time]
+        [:INTERNATIONAL_ID, :NUMBER_OF_LINES, :CYCLONE_NUMBER, :LAST_FLAG, :TIME_DIFF, :STORM_NAME, :DATE_TIME]
     )
     
     raw_data = raw[.!indcs]
@@ -328,9 +330,9 @@ function parse_track(::Type{BestTrack{JMAData}}; file::Union{Nothing,String}=not
         pressure, speed, rad50_dir, long_rad50, 
         short_rad50, rad30_dir, long_rad30, 
         short_rad30, jpfallpass],
-        [:international_id, :date_time, :year, :month, :day, :hour, :storm_name, :typhoon_grade, :latitude, :longitude,
-            :pressure, :speed, :long_radius50_direction, :long_radius50, :short_radius50,
-            :long_radius30_direction, :long_radius30, :short_radius30, :japan_fallpass
+        [:INTERNATIONAL_ID, :DATE_TIME, :YEAR, :MONTH, :DAY, :HOUR, :STORM_NAME, :TYPHOON_GRADE, :LATITUDE, :LONGITUDE,
+            :PRESSURE, :SPEED, :LONG_RADIUS50_DIRECTION, :LONG_RADIUS50, :SHORT_RADIUS50,
+            :LONG_RADIUS30_DIRECTION, :LONG_RADIUS30, :SHORT_RADIUS30, :JAPAN_FALLPASS
         ]
     )
 
