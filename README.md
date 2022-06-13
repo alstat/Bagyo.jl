@@ -14,3 +14,13 @@ To install the package, run the following:
 julia> using Pkg
 julia> Pkg.add("Bagyo")
 ```
+
+## Usage
+The following is an example of downloading and visualizing JMA RSMC best track data with emphasis on Philippine Area of Responsibility:
+```julia
+using Bagyo
+get(BestTrack, :jma)
+plot(BestTrack, :jma, :stere)
+```
+<img src="docs/src/assets/phl.png" align="center"/>
+See [documentation](https://alstat.github.io/Bagyo.jl/dev/) for more.

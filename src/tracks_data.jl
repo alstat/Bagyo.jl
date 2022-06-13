@@ -2,7 +2,7 @@ using CSV
 using HTTP
 using DataFrames
 using Dates
-import Base: download, delete!
+import Base: get, download, delete!
 
 """
     JMAData(best_track::String)
@@ -184,25 +184,25 @@ function parse_track(::Type{BestTrack{JMAData}}; file::Union{Nothing,String}=not
     for m in raw_meta
         push!(intern_id, m[7:10])
         try
-            push!(num_lines, parse(Int64, m[13:15]))
+            push!(num_lines, Base.parse(Int64, m[13:15]))
         catch
             push!(num_lines, missing)
         end
 
         try 
-            push!(cyclnenum, parse(Int64, m[17:20]))
+            push!(cyclnenum, Base.parse(Int64, m[17:20]))
         catch
             push!(cyclnenum, missing)
         end
 
         try
-            push!(last_flag, parse(Int64, m[27]))
+            push!(last_flag, Base.parse(Int64, m[27]))
         catch
             push!(last_flag, missing)
         end
 
         try
-            push!(time_diff, parse(Int64, m[39]))
+            push!(time_diff, Base.parse(Int64, m[39]))
         catch
             push!(time_diff, missing)
         end 
@@ -240,78 +240,78 @@ function parse_track(::Type{BestTrack{JMAData}}; file::Union{Nothing,String}=not
         for i in (start + 1):final
             tydata = raw_data[i]
             push!(int_id, intern_id[nl-1])
-            if Base.parse(Int64, tydata[1:2]) < 30
-                push!(yy, Base.parse(Int64, "20" * tydata[1:2]))
+            if Base.Base.parse(Int64, tydata[1:2]) < 30
+                push!(yy, Base.Base.parse(Int64, "20" * tydata[1:2]))
             else
-                push!(yy, Base.parse(Int64, "19" * tydata[1:2]))
+                push!(yy, Base.Base.parse(Int64, "19" * tydata[1:2]))
             end        
-            push!(mm, Base.parse(Int64, tydata[3:4]))
-            push!(dd, Base.parse(Int64, tydata[5:6]))
-            push!(hh, Base.parse(Int64, tydata[7:8]))
+            push!(mm, Base.Base.parse(Int64, tydata[3:4]))
+            push!(dd, Base.Base.parse(Int64, tydata[5:6]))
+            push!(hh, Base.Base.parse(Int64, tydata[7:8]))
             push!(datetime, DateTime(yy[end], mm[end], dd[end], hh[end]))
             push!(storm_name, stormname[nl-1])
             try
-                push!(tygrade, Base.parse(Int64, tydata[14]))
+                push!(tygrade, Base.Base.parse(Int64, tydata[14]))
             catch
                 push!(tygrade, missing)
             end
 
             try
-                push!(lat, Base.parse(Float64, tydata[16:18]))
+                push!(lat, Base.Base.parse(Float64, tydata[16:18]))
             catch
                 push!(lat, missing)
             end
 
             try
-                push!(long, Base.parse(Float64, tydata[20:23]))
+                push!(long, Base.Base.parse(Float64, tydata[20:23]))
             catch
                 push!(long, missing)
             end
 
             try
-                push!(pressure, Base.parse(Float64, tydata[25:28]))
+                push!(pressure, Base.Base.parse(Float64, tydata[25:28]))
             catch
                 push!(pressure, missing)
             end
 
             try
-                push!(speed, Base.parse(Float64, tydata[34:36]))
+                push!(speed, Base.Base.parse(Float64, tydata[34:36]))
             catch
                 push!(speed, missing)
             end
 
             try
-                push!(rad50_dir, Base.parse(Int64, tydata[42]))
+                push!(rad50_dir, Base.Base.parse(Int64, tydata[42]))
             catch
                 push!(rad50_dir, missing)
             end
 
             try
-                push!(long_rad50, Base.parse(Float64, tydata[43:46]))
+                push!(long_rad50, Base.Base.parse(Float64, tydata[43:46]))
             catch
                 push!(long_rad50, missing)
             end
 
             try
-                push!(short_rad50, Base.parse(Float64, tydata[48:51]))
+                push!(short_rad50, Base.Base.parse(Float64, tydata[48:51]))
             catch   
                 push!(short_rad50, missing)
             end
 
             try
-                push!(rad30_dir, Base.parse(Int64, tydata[53]))
+                push!(rad30_dir, Base.Base.parse(Int64, tydata[53]))
             catch
                 push!(rad30_dir, missing)
             end
 
             try
-                push!(long_rad30, Base.parse(Float64, tydata[54:57]))
+                push!(long_rad30, Base.Base.parse(Float64, tydata[54:57]))
             catch
                 push!(long_rad30, missing)
             end
 
             try
-                push!(short_rad30, Base.parse(Float64, tydata[59:62]))
+                push!(short_rad30, Base.Base.parse(Float64, tydata[59:62]))
             catch
                 push!(short_rad30, missing)
             end
