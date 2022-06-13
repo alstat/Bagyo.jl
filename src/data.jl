@@ -1,85 +1,174 @@
 using CSV
+using HTTP
 using DataFrames
 using Dates
-using HTTP
 import Base: download, delete!
+
 """
     JMAData(best_track::String)
 
-Instantiate JMADAta by specifying the url for the best_track data.
+Instantiate JMAData by specifying the url for the best_track data.
 """
 struct JMAData
-    best_track::String
+    url::String
 end
-JMAData() = JMAData(JMA_BST)
+JMAData() = JMAData(JMA_BT)
+
+struct IBTrACSData
+    url::String
+end
+IBTrACSData() = IBTrACSData(IBTRACS_WP_BT)
 
 struct BestTrack{T}
     data::T
 end
 
 """
-    download(file::BestTrack)
+    get(data::BestTrack)
 
 Download the BestTrack data.
 """
+function Base.get(::Type{BestTrack}, data::Symbol)
+    if data == :jma
+        download(BestTrack(JMAData()))
+    else data == :ibtracs
+        download(BestTrack(IBTrACSData()))
+    end
+end
+
 function Base.download(file::BestTrack)
     try mkdir(DB) catch end
     if (file.data isa JMAData)
         try
             mkdir(JMA_DB)
-            mkdir(JMA_BST_DB)
+            mkdir(JMA_BT_DB)
         catch end
-        HTTP.download(file.data.best_track, joinpath(JMA_BST_DB, "bst_all.zip"))
-        unzip(joinpath(JMA_BST_DB, "bst_all.zip"))
+        
+        len_dir = false
+        try 
+            len_dir = length(readdir(JMA_BT_DB)) > 0 
+        catch 
+            len_dir = false
+        end
 
-        @info "Parsing raw data"
-        meta, data = parse(BestTrack{JMAData})
+        if len_dir
+            @info "Skipping download, local DB folder has the file already. Run delete!(BestTrack, :jma) to delete and redownload again."
+        else
+            try
+                mkdir(JMA_BT_DB)
+            catch end
+            HTTP.download(file.data.url, joinpath(JMA_BT_DB, "bst_all.zip"))
+            unzip(joinpath(JMA_BT_DB, "bst_all.zip"))
 
-        @info "Saving cleaned data"
-        CSV.write(joinpath(JMA_BST_DB, "track_meta.csv"), meta)
-        CSV.write(joinpath(JMA_BST_DB, "track_data.csv"), data)
+            @info "Parsing raw data"
+            meta, data = parse_track(BestTrack{JMAData})
+
+            @info "Saving cleaned data"
+            CSV.write(joinpath(JMA_BT_DB, "track_meta.csv"), meta)
+            CSV.write(joinpath(JMA_BT_DB, "track_data.csv"), data)
+        end
+    elseif (file.data isa IBTrACSData)
+        try
+            mkdir(IBTRACS_DB)
+            mkdir(IBTRACS_BT_DB)
+        catch end
+        
+        len_dir = false
+        try
+            len_dir = length(readdir(IBTRACS_BT_DB)) > 0
+        catch
+            len_dir = false
+        end
+
+        if len_dir
+            @info "Skipping download, local DB folder has the file already. Run delete!(BestTrack, :ibtracs) to delete and redownload again."
+        else
+            try
+                mkdir(IBTRACS_BT_DB)
+            catch end
+            HTTP.download(file.data.url, joinpath(IBTRACS_BT_DB, "bst_all.csv"))
+        end
+    else
+        throw("Unknown input type $(file.data)")
+    end
+end
+
+function Base.delete!(::Type{IBTrACSData})
+    try
+        rm(IBTRACS_DB, recursive=true)
+        @info "IBTrACSData DB successfully deleted."
+    catch
+        @info "Skipping deletion of IBTrACSData DB since it does not exists."
+    end
+end
+
+function Base.delete!(::Type{BestTrack{IBTrACSData}})
+    try
+        rm(IBTRACS_BT_DB, recursive=true)
+        @info "IBTrACSData Best Track DB successfully deleted."
+    catch
+        @info "Skipping deletion of IBTrACSData Best Track DB since it does not exists."
+    end
+end
+
+function Base.delete!(::Type{JMAData})
+    try
+        rm(JMA_DB, recursive=true)
+        @info "JMA DB successfully deleted."
+    catch
+        @info "Skipping deletion of JMA DB since it does not exists."
+    end
+end
+
+
+function Base.delete!(::Type{BestTrack{JMAData}})
+    try
+        rm(JMA_BT_DB, recursive=true)
+        @info "JMA Best Track DB successfully deleted."
+    catch
+        @info "Skipping deletion of JMA Best Track DB since it does not exists."
+    end
+end
+
+"""
+    delete!(::Type{BestTrack}, data::Symbol)
+
+Delete the local `data` for Best Track files/folders. `data` takes `:jma` as input.
+"""
+function Base.delete!(::Type{BestTrack}, data::Symbol)
+    if data == :jma
+        delete!(BestTrack{JMAData})
+    elseif data == :ibtracs
+        delete!(BestTrack{IBTrACSData})
     else
         throw("Unknown input type $(file.data)")
     end
 end
 
 """
-    delete!(::Type{JMAData})
+    delete!(data::Symbol)
 
-Delete the local JMAData files/folders
+Delete all files/folders (Best Tracks, Sea Surface Temperatures, etc.) of local `data`. `data` takes `:jma` as input.
 """
-function Base.delete!(::Type{JMAData})
-    try
-        rm(JMA_DB, recursive=true)
-        @info "JMA DB successfully deleted."
-    catch
-        @info "Skipping: Skipping deletion of JMA DB since it does not exists."
+function Base.delete!(data::Symbol)
+    if data == :jma
+        delete!(JMAData)
+    elseif data == :ibtracs
+        delete!(IBTrACSData)
+    else
+        throw("Unknown input type $(file.data)")
     end
 end
 
 """
-    delete!(::Type{BestTrack{JMAData}})
-
-Delete the local JMAData Best Track files/folders
-"""
-function Base.delete!(::Type{BestTrack{JMAData}})
-    try
-        rm(JMA_BST_DB, recursive=true)
-        @info "JMA Best Track DB successfully deleted."
-    catch
-        @info "Skipping: Skipping deletion of JMA Best Track DB since it does not exists."
-    end
-end
-
-"""
-    parse(::Type{BestTrack{JMAData}}, file::Union{Nothing,String}=nothing)
+    parse_track(::Type{BestTrack{JMAData}}, file::Union{Nothing,String}=nothing)
 
 Parse the local JMAData Best Track `file`. If `file` is `nothing`, Bagyo.jl will 
 locate the file in its default DB folder.
 """
-function Base.parse(::Type{BestTrack{JMAData}}; file::Union{Nothing,String}=nothing)
+function parse_track(::Type{BestTrack{JMAData}}; file::Union{Nothing,String}=nothing)
     if file isa Nothing
-        raw = readlines(joinpath(JMA_BST_DB, "bst_all.txt"));
+        raw = readlines(joinpath(JMA_BT_DB, "bst_all.txt"));
     else
         raw = readlines(file);
     end
@@ -149,78 +238,78 @@ function Base.parse(::Type{BestTrack{JMAData}}; file::Union{Nothing,String}=noth
         for i in (start + 1):final
             tydata = raw_data[i]
             push!(int_id, intern_id[nl-1])
-            if parse(Int64, tydata[1:2]) < 30
-                push!(yy, parse(Int64, "20" * tydata[1:2]))
+            if Base.parse(Int64, tydata[1:2]) < 30
+                push!(yy, Base.parse(Int64, "20" * tydata[1:2]))
             else
-                push!(yy, parse(Int64, "19" * tydata[1:2]))
+                push!(yy, Base.parse(Int64, "19" * tydata[1:2]))
             end        
-            push!(mm, parse(Int64, tydata[3:4]))
-            push!(dd, parse(Int64, tydata[5:6]))
-            push!(hh, parse(Int64, tydata[7:8]))
+            push!(mm, Base.parse(Int64, tydata[3:4]))
+            push!(dd, Base.parse(Int64, tydata[5:6]))
+            push!(hh, Base.parse(Int64, tydata[7:8]))
             push!(datetime, DateTime(yy[end], mm[end], dd[end], hh[end]))
             push!(storm_name, stormname[nl-1])
             try
-                push!(tygrade, parse(Int64, tydata[14]))
+                push!(tygrade, Base.parse(Int64, tydata[14]))
             catch
                 push!(tygrade, missing)
             end
 
             try
-                push!(lat, parse(Float64, tydata[16:18]))
+                push!(lat, Base.parse(Float64, tydata[16:18]))
             catch
                 push!(lat, missing)
             end
 
             try
-                push!(long, parse(Float64, tydata[20:23]))
+                push!(long, Base.parse(Float64, tydata[20:23]))
             catch
                 push!(long, missing)
             end
 
             try
-                push!(pressure, parse(Float64, tydata[25:28]))
+                push!(pressure, Base.parse(Float64, tydata[25:28]))
             catch
                 push!(pressure, missing)
             end
 
             try
-                push!(speed, parse(Float64, tydata[34:36]))
+                push!(speed, Base.parse(Float64, tydata[34:36]))
             catch
                 push!(speed, missing)
             end
 
             try
-                push!(rad50_dir, parse(Int64, tydata[42]))
+                push!(rad50_dir, Base.parse(Int64, tydata[42]))
             catch
                 push!(rad50_dir, missing)
             end
 
             try
-                push!(long_rad50, parse(Float64, tydata[43:46]))
+                push!(long_rad50, Base.parse(Float64, tydata[43:46]))
             catch
                 push!(long_rad50, missing)
             end
 
             try
-                push!(short_rad50, parse(Float64, tydata[48:51]))
+                push!(short_rad50, Base.parse(Float64, tydata[48:51]))
             catch   
                 push!(short_rad50, missing)
             end
 
             try
-                push!(rad30_dir, parse(Int64, tydata[53]))
+                push!(rad30_dir, Base.parse(Int64, tydata[53]))
             catch
                 push!(rad30_dir, missing)
             end
 
             try
-                push!(long_rad30, parse(Float64, tydata[54:57]))
+                push!(long_rad30, Base.parse(Float64, tydata[54:57]))
             catch
                 push!(long_rad30, missing)
             end
 
             try
-                push!(short_rad30, parse(Float64, tydata[59:62]))
+                push!(short_rad30, Base.parse(Float64, tydata[59:62]))
             catch
                 push!(short_rad30, missing)
             end
@@ -249,12 +338,18 @@ function Base.parse(::Type{BestTrack{JMAData}}; file::Union{Nothing,String}=noth
 end
 
 """
-    load(::Type{BestTrack{JMAData}})
+    load(::Type{BestTrack}, data::Symbol)   
 
-Load the JMAData Best Track data.
+Load the Best Track `data`.
 """
-function load(::Type{BestTrack{JMAData}}; file::Union{Nothing,String}=nothing)
-    meta = CSV.read(joinpath(JMA_BST_DB, "track_meta.csv"), DataFrame)
-    data = CSV.read(joinpath(JMA_BST_DB, "track_data.csv"), DataFrame)
-    return meta, data
+function load(::Type{BestTrack}, data::Symbol)
+    if data == :jma
+        meta = CSV.read(joinpath(JMA_BT_DB, "track_meta.csv"), DataFrame)
+        data = CSV.read(joinpath(JMA_BT_DB, "track_data.csv"), DataFrame)
+        return meta, data
+    elseif data == :ibtracs
+        data = CSV.read(joinpath(IBTRACS_BT_DB, "bst_all.csv"), DataFrame, skipto=3)
+    else
+        throw("data takes :jma and :ibtracs only.")
+    end
 end

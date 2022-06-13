@@ -1,26 +1,48 @@
-# JMA Best Track
-This section will discuss the process of downloading and loading the JMA Best Track data.
+# Best Track Data
+This section will discuss the process of downloading and loading Best Track data both from JMA and IBTrACS.
 
 ## Downloading
-To download the JMA Best Track data, we run the following:
+To download the JMA Best Track data, simply run the following:
 ```@repl abc
 using Bagyo
-bst = BestTrack(JMAData())
-download(bst)
+get(BestTrack, :jma)
 ```
-## Loading
-To download the JMA Best Track data, we run the following:
+As for IBTrACS, we use `:ibtracs` instead of `:jma`:
 ```@repl abc
-meta, data = load(BestTrack{JMAData}) # or load(typeof(bst));
+get(BestTrack, :ibtracs)
+```
+Bagyo.jl only downloads the Western-North Pacific data of IBTrACS.
+
+## Loading
+To load the JMA Best Track data, we run the following:
+```@repl abc
+meta, data = load(BestTrack, :jma);
 meta
 data
 ```
-## Deleting Local DB
-To delete the local DB for storing the downloaded files, run the following:
-```@repl abc
-# delete only the Best Track of JMAData folders and files
-delete!(BestTrack{JMAData})
+Note that JMA returns two datasets, the `meta`data which contains the information about the columns of the `data`.
 
-# delete all JMAData folders and files
-delete!(JMAData)
+As for IBTrACS, we only have one data.
+```@repl abc
+data = load(BestTrack, :ibtracs);
+data
+```
+Please refer to [IBTrACS documentation](https://www.ncei.noaa.gov/sites/default/files/2021-07/IBTrACS_v04_column_documentation.pdf) for the metadata of the columns of the data above.
+
+## Deleting Local DB
+The downloaded data are saved in the local directory of your machine, and we have the following APIs for deleting the data.
+```@repl abc
+# delete only the Best Track of JMA Data folders and files
+delete!(BestTrack, :jma)
+
+# delete all JMA Data folders and files
+delete!(:jma)
+```
+For IBTrACS, we have
+```@repl abc
+# delete only the Best Track of IBTrACS Data folders and files
+delete!(BestTrack, :ibtracs)
+
+# delete all IBTrACS Data folders and files
+delete!(:ibtracs)
 ```
