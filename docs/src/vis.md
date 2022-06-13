@@ -5,10 +5,13 @@ using Bagyo
 get(BestTrack, :jma)
 plot(BestTrack, :jma)
 ```
+```@raw html
 <img src="https://github.com/alstat/Bagyo.jl/raw/master/docs/src/assets/phl1.png" align="center"/>
-
+```
 The above codes uses Gall Stereographic projection. For Stereographic projection, we have
 ```@repl abc
 plot(BestTrack, :jma, :stere)
 ```
+```@raw html
 <img src="https://github.com/alstat/Bagyo.jl/raw/master/docs/src/assets/phl.png" align="center"/>
+```
