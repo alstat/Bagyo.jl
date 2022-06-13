@@ -23,4 +23,5 @@ get(BestTrack, :jma)
 plot(BestTrack, :jma, :stere)
 ```
 <img src="docs/src/assets/phl.png" align="center"/>
-See [documentation](https://alstat.github.io/Bagyo.jl/dev/) for more.
+
+See the <a href="https://alstat.github.io/Bagyo.jl/dev/">documentation</a> for more.
