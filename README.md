@@ -20,9 +20,21 @@ The following is an example of downloading and visualizing JMA RSMC best track d
 ```julia
 using Bagyo
 get(BestTrack, :jma)
-meta, data = load(BestTrack, :jma)
-plot(data, :jma, :stere, :phl)
+meta, data = load(BestTrack, :jma);
+f1, a1 = with_theme(theme_dark(), resolution=(850, 650)) do
+	plot(PHL(), :stere);
+end;
+lines!(a1, data, :jma, linewidth=1, color=RGBAf(0.941176, 0.0, 1.0, 0.15));
+a1.xtickformat = "\n\n{:d}ᵒ"; 
+a1.ytickformat = "{:d}ᵒ ";
+a1.title = "Tropical Cyclone in Western-North Pacific";
+a1.titlesize = 25;
+a1.titlealign = :left;
+a1.xlabel = "Longitude";
+a1.ylabel = "Latitude";
+a1.ylabelpadding = 15;
+a1.xlabelpadding = -30;
 ```
-<img src="docs/src/assets/phl.png" align="center"/>
+<img src="docs/src/assets/phl1.svg" align="center"/>
 
 See the <a href="https://alstat.github.io/Bagyo.jl/dev/">documentation</a> for more.

@@ -6,7 +6,7 @@ end
 
 function Base.get(::Type{CountryPoly}, country::Symbol)
     if country == :phl
-        download(CountryPoly(:phl))
+        Base.download(CountryPoly(:phl))
     else 
         throw("Unknown input data, current choice is :phl only")
     end
@@ -28,7 +28,7 @@ function Base.download(file::CountryPoly)
         end
 
         if len_dir
-            @info "Skipping download, local DB folder has the file already. Run delete!(BestTrack, :jma) to delete and redownload again."
+            @info "Skipping download of PHL polygon, local DB folder has the file already. Run delete!(CountryPoly, :phl) to delete and redownload again."
         else
             try
                 mkdir(PHL_POLY)
