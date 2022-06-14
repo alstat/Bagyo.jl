@@ -3,9 +3,9 @@
 │   source = &quot;https://www.jma.go.jp/jma/jma-eng/jma-center/rsmc-hp-pub-eg/Besttracks/bst_all.zip&quot;
 │   dest = &quot;/home/runner/work/Bagyo.jl/Bagyo.jl/src/../db/jma/bt/bst_all.zip&quot;
 │   progress = 1.0
-│   time_taken = &quot;0.07 s&quot;
+│   time_taken = &quot;0.05 s&quot;
 │   time_remaining = &quot;0.0 s&quot;
-│   average_speed = &quot;10.526 MiB/s&quot;
+│   average_speed = &quot;14.105 MiB/s&quot;
 │   downloaded = &quot;722.181 KiB&quot;
 │   remaining = &quot;0 bytes&quot;
 └   total = &quot;722.181 KiB&quot;
@@ -14,12 +14,95 @@
 [ Info: Deleting zip file
 [ Info: Parsing raw data
 [ Info: Saving cleaned data
-&quot;/home/runner/work/Bagyo.jl/Bagyo.jl/src/../db/jma/bt/track_data.csv&quot;</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; plot(BestTrack, :jma)</code><code class="nohighlight hljs ansi" style="display:block;">ERROR: MethodError: no method matching plot(::Type{BestTrack}, ::Symbol)
-Closest candidates are:
-  plot(!Matched::DataFrames.DataFrame, ::Symbol) at ~/work/Bagyo.jl/Bagyo.jl/src/vis.jl:40
-  plot(!Matched::DataFrames.DataFrame, ::Symbol, !Matched::Symbol) at ~/work/Bagyo.jl/Bagyo.jl/src/vis.jl:40
-  plot(!Matched::DataFrames.DataFrame, ::Symbol, !Matched::Symbol, !Matched::Symbol) at ~/work/Bagyo.jl/Bagyo.jl/src/vis.jl:40</code></pre><img src="https://github.com/alstat/Bagyo.jl/raw/master/docs/src/assets/phl1.png" align="center"/><p>The above codes uses Gall Stereographic projection. For Stereographic projection, we have</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; plot(BestTrack, :jma, :stere)</code><code class="nohighlight hljs ansi" style="display:block;">ERROR: MethodError: no method matching plot(::Type{BestTrack}, ::Symbol, ::Symbol)
-Closest candidates are:
-  plot(!Matched::DataFrames.DataFrame, ::Symbol, ::Symbol) at ~/work/Bagyo.jl/Bagyo.jl/src/vis.jl:40
-  plot(!Matched::DataFrames.DataFrame, ::Symbol, ::Symbol, !Matched::Symbol) at ~/work/Bagyo.jl/Bagyo.jl/src/vis.jl:40
-  plot(!Matched::DataFrames.DataFrame, ::Symbol) at ~/work/Bagyo.jl/Bagyo.jl/src/vis.jl:40</code></pre><img src="https://github.com/alstat/Bagyo.jl/raw/master/docs/src/assets/phl.png" align="center"/></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../data/">« Data Extraction</a><a class="docs-footer-nextpage" href="../api/">API »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.19 on <span class="colophon-date" title="Tuesday 14 June 2022 04:45">Tuesday 14 June 2022</span>. Using Julia version 1.7.3.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+&quot;/home/runner/work/Bagyo.jl/Bagyo.jl/src/../db/jma/bt/track_data.csv&quot;</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; meta, data = load(BestTrack, :jma)</code><code class="nohighlight hljs ansi" style="display:block;">(1856×7 DataFrame
+  Row │ INTERNATIONAL_ID  NUMBER_OF_LINES  CYCLONE_NUMBER  LAST_FLAG  TIME_DIF ⋯
+      │ Int64             Int64            Int64?          Int64      Missing  ⋯
+──────┼─────────────────────────────────────────────────────────────────────────
+    1 │             5101               10         missing          0    missin ⋯
+    2 │             5102               37         missing          0    missin
+    3 │             5103               36         missing          0    missin
+    4 │             5104               66         missing          0    missin
+    5 │             5105               45         missing          1    missin ⋯
+    6 │             5106               29         missing          0    missin
+    7 │             5107               34         missing          1    missin
+    8 │             5108               17         missing          0    missin
+  ⋮   │        ⋮                 ⋮               ⋮             ⋮          ⋮    ⋱
+ 1850 │             2116               57              23          1    missin ⋯
+ 1851 │             2117               24              24          0    missin
+ 1852 │             2118               31              25          0    missin
+ 1853 │             2119               42              26          1    missin
+ 1854 │             2120               39              27          1    missin ⋯
+ 1855 │             2121               23              28          0    missin
+ 1856 │             2122               39              29          0    missin
+                                                 3 columns and 1841 rows omitted, 67891×19 DataFrame
+   Row │ INTERNATIONAL_ID  DATE_TIME            YEAR   MONTH  DAY    HOUR   ST ⋯
+       │ Int64             DateTime             Int64  Int64  Int64  Int64  St ⋯
+───────┼────────────────────────────────────────────────────────────────────────
+     1 │             5101  1951-02-19T06:00:00   1951      2     19      6  mi ⋯
+     2 │             5101  1951-02-19T12:00:00   1951      2     19     12  mi
+     3 │             5101  1951-02-19T18:00:00   1951      2     19     18  mi
+     4 │             5101  1951-02-20T00:00:00   1951      2     20      0  mi
+     5 │             5101  1951-02-20T06:00:00   1951      2     20      6  mi ⋯
+     6 │             5101  1951-02-20T12:00:00   1951      2     20     12  mi
+     7 │             5101  1951-02-20T18:00:00   1951      2     20     18  mi
+     8 │             5101  1951-02-21T00:00:00   1951      2     21      0  mi
+   ⋮   │        ⋮                   ⋮             ⋮      ⋮      ⋮      ⋮       ⋱
+ 67885 │             2122  2021-12-19T18:00:00   2021     12     19     18  RA ⋯
+ 67886 │             2122  2021-12-20T00:00:00   2021     12     20      0  RA
+ 67887 │             2122  2021-12-20T06:00:00   2021     12     20      6  RA
+ 67888 │             2122  2021-12-20T12:00:00   2021     12     20     12  RA
+ 67889 │             2122  2021-12-20T18:00:00   2021     12     20     18  RA ⋯
+ 67890 │             2122  2021-12-21T00:00:00   2021     12     21      0  RA
+ 67891 │             2122  2021-12-21T06:00:00   2021     12     21      6  RA
+                                               13 columns and 67876 rows omitted)</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; plot(data, :jma)</code><code class="nohighlight hljs ansi" style="display:block;">[ Info: Downloading PHL polygon (this only happens on first time plotting of PHL polygon)
+┌ Info: Downloading
+│   source = &quot;https://raw.githubusercontent.com/alstat/BagyoData/main/PHL/country/lowres/PHL.json&quot;
+│   dest = &quot;/home/runner/work/Bagyo.jl/Bagyo.jl/src/../db/poly/phl/phl_geo.json&quot;
+│   progress = 1.0
+│   time_taken = &quot;0.05 s&quot;
+│   time_remaining = &quot;0.0 s&quot;
+│   average_speed = &quot;9.605 MiB/s&quot;
+│   downloaded = &quot;531.104 KiB&quot;
+│   remaining = &quot;0 bytes&quot;
+└   total = &quot;531.104 KiB&quot;
+[ Info: Plotting
+[ Info: Processing 100th track
+[ Info: Processing 200th track
+[ Info: Processing 300th track
+[ Info: Processing 400th track
+[ Info: Processing 500th track
+[ Info: Processing 600th track
+[ Info: Processing 700th track
+[ Info: Processing 800th track
+[ Info: Processing 900th track
+[ Info: Processing 1000th track
+[ Info: Processing 1100th track
+[ Info: Processing 1200th track
+[ Info: Processing 1300th track
+[ Info: Processing 1400th track
+[ Info: Processing 1500th track
+[ Info: Processing 1600th track
+[ Info: Processing 1700th track
+[ Info: Processing 1800th track
+Figure()</code></pre><img src="https://github.com/alstat/Bagyo.jl/raw/master/docs/src/assets/phl1.png" align="center"/><p>The above codes uses Gall Stereographic projection. For Stereographic projection, we have</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; plot(data, :jma, :stere)</code><code class="nohighlight hljs ansi" style="display:block;">[ Info: Downloading PHL polygon (this only happens on first time plotting of PHL polygon)
+[ Info: Skipping download, local DB folder has the file already. Run delete!(BestTrack, :jma) to delete and redownload again.
+[ Info: Plotting
+[ Info: Processing 100th track
+[ Info: Processing 200th track
+[ Info: Processing 300th track
+[ Info: Processing 400th track
+[ Info: Processing 500th track
+[ Info: Processing 600th track
+[ Info: Processing 700th track
+[ Info: Processing 800th track
+[ Info: Processing 900th track
+[ Info: Processing 1000th track
+[ Info: Processing 1100th track
+[ Info: Processing 1200th track
+[ Info: Processing 1300th track
+[ Info: Processing 1400th track
+[ Info: Processing 1500th track
+[ Info: Processing 1600th track
+[ Info: Processing 1700th track
+[ Info: Processing 1800th track
+Figure()</code></pre><img src="https://github.com/alstat/Bagyo.jl/raw/master/docs/src/assets/phl.png" align="center"/></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../data/">« Data Extraction</a><a class="docs-footer-nextpage" href="../api/">API »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.19 on <span class="colophon-date" title="Tuesday 14 June 2022 05:15">Tuesday 14 June 2022</span>. Using Julia version 1.7.3.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
