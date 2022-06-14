@@ -1,5 +1,10 @@
 # Visualization
 This section will illustrate how to use some visualization API of Bagyo.jl. This is currently at early stage, and further customization on the target countries will be added, at the moment we have Philippine Area of Responsibility (PAR) as the region of interest.
+```@setup abc
+using Pkg 
+Pkg.add("Makie")
+Pkg.add("Colors")
+```
 ```@repl abc
 using Bagyo
 using Colors
