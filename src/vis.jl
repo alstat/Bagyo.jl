@@ -3,6 +3,9 @@ using Colors
 using GeoInterface
 using GeoJSON
 using GeoMakie
+using Makie
+
+abstract type AbstractCountry end
 
 struct PHL <: AbstractCountry
     lon_0::Int64
@@ -15,7 +18,7 @@ par_lon = [115, 135, 135, 120, 120, 115, 115]
 par_lat = [5, 5, 25, 25, 21, 15, 5]
 PHL() = PHL(150, 10, (100, 185), (-5, 55), (par_lon, par_lat))
 
-function plot(country::AbstractCountry, proj::Symbol=:gall,
+function Makie.plot(country::AbstractCountry, proj::Symbol=:gall,
 	countrystyle::NamedTuple=(
 		color=colorant"#c9007c",
 		strokecolor=:gray, 

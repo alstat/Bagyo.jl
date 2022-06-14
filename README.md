@@ -19,22 +19,24 @@ julia> Pkg.add("Bagyo")
 The following is an example of downloading and visualizing JMA RSMC best track data with emphasis on Philippine Area of Responsibility:
 ```julia
 using Bagyo
+using Colors
+using Makie
 get(BestTrack, :jma)
 meta, data = load(BestTrack, :jma);
 f1, a1 = with_theme(theme_dark(), resolution=(850, 650)) do
 	plot(PHL(), :stere);
 end;
-lines!(a1, data, :jma, linewidth=1, color=RGBAf(0.941176, 0.0, 1.0, 0.15));
-a1.xtickformat = "\n\n{:d}ᵒ"; 
-a1.ytickformat = "{:d}ᵒ ";
+lines!(a1, data, :jma, linewidth=1, color=RGBAf(1.0, 0.678431, 0.0, 0.15))
 a1.title = "Tropical Cyclone in Western-North Pacific";
 a1.titlesize = 25;
 a1.titlealign = :left;
 a1.xlabel = "Longitude";
 a1.ylabel = "Latitude";
-a1.ylabelpadding = 15;
 a1.xlabelpadding = -30;
+a1.ylabelpadding = 15;
+a1.xtickformat = "\n\n{:d}ᵒ"; 
+a1.ytickformat = "{:d}ᵒ ";
+f1
 ```
 <img src="docs/src/assets/phl1.svg" align="center"/>
-
 See the <a href="https://alstat.github.io/Bagyo.jl/dev/">documentation</a> for more.

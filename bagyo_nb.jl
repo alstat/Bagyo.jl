@@ -105,6 +105,9 @@ function custom_theme()
 	thm["resolution"] = (1150, 900)
 end
 
+# ╔═╡ 706af0aa-c899-47b2-84dd-92a44aba0efd
+methods(with_theme)
+
 # ╔═╡ 791f0ced-3854-4fd6-bc52-a6a6ec6357dc
 f1, a1 = with_theme(theme_dark(), resolution=(850, 650)) do
 	plot(PHL(), :stere);
@@ -117,7 +120,10 @@ a1.xtickformat = "\n\n{:d}ᵒ"; a1.ytickformat = "{:d}ᵒ "; f1
 meta, data = load(BestTrack, :jma)
 
 # ╔═╡ a036e744-e3a6-40f0-9552-7368c2a64175
-lines!(a1, data, :jma, linewidth=1, color=RGBAf(0.941176, 0.0, 1.0, 0.15))
+lines!(a1, data, :jma, linewidth=1, color=RGBAf(1.0, 0.678431, 0.0, 0.15))
+
+# ╔═╡ 765e2f49-fd4d-477e-8886-d71349377233
+[255,173,0]./255
 
 # ╔═╡ eb4cb7de-ff48-44c1-a1af-dfc89abe1526
 f1
@@ -1456,10 +1462,12 @@ version = "3.5.0+0"
 # ╠═97144410-e279-4871-8f58-96d94a65edf8
 # ╠═5d726712-9592-42d8-a369-e32c26959011
 # ╠═af4e7208-1b80-4eb1-ab2e-03ac61136c37
+# ╠═706af0aa-c899-47b2-84dd-92a44aba0efd
 # ╠═791f0ced-3854-4fd6-bc52-a6a6ec6357dc
 # ╠═594ca17a-c8c4-48e6-8a28-0cb96d5236a9
 # ╠═6a0abf25-fa9a-4c42-a80d-ebbb04607ac7
 # ╠═a036e744-e3a6-40f0-9552-7368c2a64175
+# ╠═765e2f49-fd4d-477e-8886-d71349377233
 # ╠═eb4cb7de-ff48-44c1-a1af-dfc89abe1526
 # ╠═1944acb3-241c-411c-8978-069938cb9da4
 # ╠═82dcfcf5-0f6e-4a54-83bc-f8d3b3cc1aec
