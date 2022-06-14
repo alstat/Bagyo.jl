@@ -3,9 +3,9 @@
 │   source = &quot;https://www.jma.go.jp/jma/jma-eng/jma-center/rsmc-hp-pub-eg/Besttracks/bst_all.zip&quot;
 │   dest = &quot;/home/runner/work/Bagyo.jl/Bagyo.jl/src/../db/jma/bt/bst_all.zip&quot;
 │   progress = 1.0
-│   time_taken = &quot;0.03 s&quot;
+│   time_taken = &quot;0.07 s&quot;
 │   time_remaining = &quot;0.0 s&quot;
-│   average_speed = &quot;25.188 MiB/s&quot;
+│   average_speed = &quot;10.526 MiB/s&quot;
 │   downloaded = &quot;722.181 KiB&quot;
 │   remaining = &quot;0 bytes&quot;
 └   total = &quot;722.181 KiB&quot;
@@ -14,40 +14,12 @@
 [ Info: Deleting zip file
 [ Info: Parsing raw data
 [ Info: Saving cleaned data
-&quot;/home/runner/work/Bagyo.jl/Bagyo.jl/src/../db/jma/bt/track_data.csv&quot;</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; plot(BestTrack, :jma)</code><code class="nohighlight hljs ansi" style="display:block;">[ Info: Processing 100th track
-[ Info: Processing 200th track
-[ Info: Processing 300th track
-[ Info: Processing 400th track
-[ Info: Processing 500th track
-[ Info: Processing 600th track
-[ Info: Processing 700th track
-[ Info: Processing 800th track
-[ Info: Processing 900th track
-[ Info: Processing 1000th track
-[ Info: Processing 1100th track
-[ Info: Processing 1200th track
-[ Info: Processing 1300th track
-[ Info: Processing 1400th track
-[ Info: Processing 1500th track
-[ Info: Processing 1600th track
-[ Info: Processing 1700th track
-[ Info: Processing 1800th track
-Figure()</code></pre><img src="https://github.com/alstat/Bagyo.jl/raw/master/docs/src/assets/phl1.png" align="center"/><p>The above codes uses Gall Stereographic projection. For Stereographic projection, we have</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; plot(BestTrack, :jma, :stere)</code><code class="nohighlight hljs ansi" style="display:block;">[ Info: Processing 100th track
-[ Info: Processing 200th track
-[ Info: Processing 300th track
-[ Info: Processing 400th track
-[ Info: Processing 500th track
-[ Info: Processing 600th track
-[ Info: Processing 700th track
-[ Info: Processing 800th track
-[ Info: Processing 900th track
-[ Info: Processing 1000th track
-[ Info: Processing 1100th track
-[ Info: Processing 1200th track
-[ Info: Processing 1300th track
-[ Info: Processing 1400th track
-[ Info: Processing 1500th track
-[ Info: Processing 1600th track
-[ Info: Processing 1700th track
-[ Info: Processing 1800th track
-Figure()</code></pre><img src="https://github.com/alstat/Bagyo.jl/raw/master/docs/src/assets/phl.png" align="center"/></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../data/">« Data Extraction</a><a class="docs-footer-nextpage" href="../api/">API »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.19 on <span class="colophon-date" title="Tuesday 14 June 2022 01:51">Tuesday 14 June 2022</span>. Using Julia version 1.7.3.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+&quot;/home/runner/work/Bagyo.jl/Bagyo.jl/src/../db/jma/bt/track_data.csv&quot;</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; plot(BestTrack, :jma)</code><code class="nohighlight hljs ansi" style="display:block;">ERROR: MethodError: no method matching plot(::Type{BestTrack}, ::Symbol)
+Closest candidates are:
+  plot(!Matched::DataFrames.DataFrame, ::Symbol) at ~/work/Bagyo.jl/Bagyo.jl/src/vis.jl:40
+  plot(!Matched::DataFrames.DataFrame, ::Symbol, !Matched::Symbol) at ~/work/Bagyo.jl/Bagyo.jl/src/vis.jl:40
+  plot(!Matched::DataFrames.DataFrame, ::Symbol, !Matched::Symbol, !Matched::Symbol) at ~/work/Bagyo.jl/Bagyo.jl/src/vis.jl:40</code></pre><img src="https://github.com/alstat/Bagyo.jl/raw/master/docs/src/assets/phl1.png" align="center"/><p>The above codes uses Gall Stereographic projection. For Stereographic projection, we have</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; plot(BestTrack, :jma, :stere)</code><code class="nohighlight hljs ansi" style="display:block;">ERROR: MethodError: no method matching plot(::Type{BestTrack}, ::Symbol, ::Symbol)
+Closest candidates are:
+  plot(!Matched::DataFrames.DataFrame, ::Symbol, ::Symbol) at ~/work/Bagyo.jl/Bagyo.jl/src/vis.jl:40
+  plot(!Matched::DataFrames.DataFrame, ::Symbol, ::Symbol, !Matched::Symbol) at ~/work/Bagyo.jl/Bagyo.jl/src/vis.jl:40
+  plot(!Matched::DataFrames.DataFrame, ::Symbol) at ~/work/Bagyo.jl/Bagyo.jl/src/vis.jl:40</code></pre><img src="https://github.com/alstat/Bagyo.jl/raw/master/docs/src/assets/phl.png" align="center"/></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../data/">« Data Extraction</a><a class="docs-footer-nextpage" href="../api/">API »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.19 on <span class="colophon-date" title="Tuesday 14 June 2022 04:45">Tuesday 14 June 2022</span>. Using Julia version 1.7.3.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
