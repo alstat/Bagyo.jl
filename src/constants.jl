@@ -7,8 +7,8 @@ const JMA_DB = joinpath(DB, "jma")
 const JMA_BT_DB = joinpath(JMA_DB, "bt")
 const IBTRACS_DB = joinpath(DB, "ibtracs")
 const IBTRACS_BT_DB = joinpath(IBTRACS_DB, "bt")
-const PHL = joinpath(@__DIR__, "../assets/phl_geo.json")
-const ASIA = joinpath(@__DIR__, "../assets/asia_geo.json")
+const PHL_POLY = joinpath(DB_POLY, "phl")
+const ASIA_POLY = joinpath(@__DIR__, "../assets/asia_geo.json")
 
 # URLs
-PH_LOWRES_GEOJSON = "https://raw.githubusercontent.com/faeldon/philippines-json-maps/master/geojson/country/lowres/country.0.001.json";
+PH_LOWRES_GEOJSON = "https://raw.githubusercontent.com/alstat/BagyoData/main/PHL/country/lowres/PHL.json";

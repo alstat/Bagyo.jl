@@ -4,8 +4,8 @@ struct CountryPoly
     data::Symbol
 end
 
-function Base.get(::Type{CountryPoly}, data::Symbol)
-    if data == :phl
+function Base.get(::Type{CountryPoly}, country::Symbol)
+    if country == :phl
         download(CountryPoly(:phl))
     else 
         throw("Unknown input data, current choice is :phl only")
@@ -17,12 +17,12 @@ function Base.download(file::CountryPoly)
     try mkdir(DB_POLY) catch end
     if (file.data == :phl)
         try
-            mkdir(PHL)
+            mkdir(PHL_POLY)
         catch end
         
         len_dir = false
         try 
-            len_dir = length(readdir(PHL)) > 0 
+            len_dir = length(readdir(PHL_POLY)) > 0 
         catch 
             len_dir = false
         end
@@ -31,9 +31,9 @@ function Base.download(file::CountryPoly)
             @info "Skipping download, local DB folder has the file already. Run delete!(BestTrack, :jma) to delete and redownload again."
         else
             try
-                mkdir(PHL)
+                mkdir(PHL_POLY)
             catch end
-            HTTP.download(PH_LOWRES_GEOJSON, joinpath(PHL, "phl_geo.json"))
+            HTTP.download(PH_LOWRES_GEOJSON, joinpath(PHL_POLY, "phl_geo.json"))
         end
     else
         throw("Unknown input type $(file.data)")
@@ -43,7 +43,7 @@ end
 function Base.delete!(::Type{CountryPoly}, data::Symbol)
     try
         if data == :phl
-            rm(PHL, recursive=true)
+            rm(PHL_POLY, recursive=true)
             @info "$(uppercase(string(data))) polygon data successfully deleted."
         else
             throw("Unknown input data, choices is :phl only.")
