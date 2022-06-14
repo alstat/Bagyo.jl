@@ -4,6 +4,9 @@
 using Markdown
 using InteractiveUtils
 
+# ╔═╡ 19cfa399-eed9-4e09-887b-2d373f1f5df5
+using Revise
+
 # ╔═╡ aca40ad9-7603-4c17-a7a6-a6fa6a520124
 using CairoMakie
 
@@ -68,6 +71,45 @@ function Makie.lines!(axis::Makie.Axis, data::DataFrame,
 	end
 end
 
+# ╔═╡ af4e7208-1b80-4eb1-ab2e-03ac61136c37
+function custom_theme()
+	thm = theme_dark()
+	thm["resolution"] = (1150, 900)
+end
+
+# ╔═╡ 706af0aa-c899-47b2-84dd-92a44aba0efd
+methods(with_theme)
+
+# ╔═╡ 6a0abf25-fa9a-4c42-a80d-ebbb04607ac7
+meta, data = load(BestTrack, :jma)
+
+# ╔═╡ 765e2f49-fd4d-477e-8886-d71349377233
+[255,173,0]./255
+
+# ╔═╡ 3d5bd09a-ce68-41ba-9560-6a414cb5dbc8
+readdir(".")
+
+# ╔═╡ 65366d3c-ee39-44f3-b19c-a4544d87e3ba
+macro country(iso3, lon_0, lat_0, lonlims, latlims, area_monitored)
+    esc(quote
+        struct $iso3 <: AbstractCountry
+            lon_0::Int64
+			lat_0::Int64
+			lonlims::Tuple
+			latlims::Tuple
+			area_monitored::Tuple
+        end
+        
+        $iso3() = $iso3($lon_0, $lat_0, $lonlims, $latlims, $area_monitored)
+    end)
+end
+
+# ╔═╡ b9ab6374-a98b-442f-8b36-d84765ba1597
+jpnar_lon = [125, 125, 150, 150, 125]; jpnar_lat = [50, 20, 20, 50, 50]
+
+# ╔═╡ 9c95ae6b-c21a-438a-b44f-d1d022deb5ac
+@country JPN 150 10 (100, 185) (-5, 55) (jpnar_lon, jpnar_lat)
+
 # ╔═╡ baf8fc4c-5e81-48d2-8864-6c8bc112eab1
 function plot(country::AbstractCountry, proj::Symbol=:gall,
 	countrystyle::NamedTuple=(
@@ -90,6 +132,17 @@ function plot(country::AbstractCountry, proj::Symbol=:gall,
 		poly!(ax, countryland; countrystyle...)
 		lines!(ax, country.area_monitored[1], country.area_monitored[2])
 		return fig, ax
+	elseif country isa JPN
+		get(CountryPoly, :jpn)
+		countryland = GeoJSON.read(read(joinpath(JPN_POLY, "jpn_geo.json"), String));
+		asialand = GeoJSON.read(read(ASIA_POLY, String))
+		fig = Figure();
+		ax = GeoAxis(fig[1, 1], 
+			dest="+proj=$proj +lon_0=$(country.lon_0) +lat_0=$(country.lat_0)", lonlims=country.lonlims, latlims=country.latlims, coastlines=false)
+		poly!(ax, asialand; landstyle...)
+		poly!(ax, countryland; countrystyle...)
+		lines!(ax, country.area_monitored[1], country.area_monitored[2])
+		return fig, ax
 	end
 end
 
@@ -99,15 +152,6 @@ f0, a0 = plot(PHL(), :stere);
 # ╔═╡ 5d726712-9592-42d8-a369-e32c26959011
 save("phl0.svg", f0) 
 
-# ╔═╡ af4e7208-1b80-4eb1-ab2e-03ac61136c37
-function custom_theme()
-	thm = theme_dark()
-	thm["resolution"] = (1150, 900)
-end
-
-# ╔═╡ 706af0aa-c899-47b2-84dd-92a44aba0efd
-methods(with_theme)
-
 # ╔═╡ 791f0ced-3854-4fd6-bc52-a6a6ec6357dc
 f1, a1 = with_theme(theme_dark(), resolution=(850, 650)) do
 	plot(PHL(), :stere);
@@ -116,14 +160,8 @@ end;
 # ╔═╡ 594ca17a-c8c4-48e6-8a28-0cb96d5236a9
 a1.xtickformat = "\n\n{:d}ᵒ"; a1.ytickformat = "{:d}ᵒ "; f1
 
-# ╔═╡ 6a0abf25-fa9a-4c42-a80d-ebbb04607ac7
-meta, data = load(BestTrack, :jma)
-
 # ╔═╡ a036e744-e3a6-40f0-9552-7368c2a64175
 lines!(a1, data, :jma, linewidth=1, color=RGBAf(1.0, 0.678431, 0.0, 0.15))
-
-# ╔═╡ 765e2f49-fd4d-477e-8886-d71349377233
-[255,173,0]./255
 
 # ╔═╡ eb4cb7de-ff48-44c1-a1af-dfc89abe1526
 f1
@@ -155,8 +193,11 @@ a1.xlabelpadding = -30;
 # ╔═╡ 7fc25e19-47ea-4317-8242-2b73d0a7e982
 save("phl2.svg", f1) 
 
-# ╔═╡ 3d5bd09a-ce68-41ba-9560-6a414cb5dbc8
-readdir(".")
+# ╔═╡ cc00a7f2-e581-4a97-8de5-65aa08768e5c
+JPN()
+
+# ╔═╡ da56b545-ed87-4341-b81a-616845056132
+f1, g2
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """
@@ -168,6 +209,7 @@ DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
 GeoJSON = "61d90e0f-e114-555e-ac52-39dfb47a3ef9"
 GeoMakie = "db073c08-6b98-4ee5-b6a4-5efafb3259c6"
 HTTP = "cd3eb016-35fb-5094-929b-558a96fad6f3"
+Revise = "295af30f-e4ad-537b-8983-00126c2a3abe"
 
 [compat]
 CSV = "~0.10.4"
@@ -177,6 +219,7 @@ DataFrames = "~1.3.4"
 GeoJSON = "~0.5.1"
 GeoMakie = "~0.4.1"
 HTTP = "~0.9.17"
+Revise = "~3.3.3"
 """
 
 # ╔═╡ 00000000-0000-0000-0000-000000000002
@@ -279,6 +322,12 @@ deps = ["ChainRulesCore", "LinearAlgebra", "Test"]
 git-tree-sha1 = "1e315e3f4b0b7ce40feded39c73049692126cf53"
 uuid = "9e997f8a-9a97-42d5-a9f1-ce6bfc15e2c0"
 version = "0.1.3"
+
+[[CodeTracking]]
+deps = ["InteractiveUtils", "UUIDs"]
+git-tree-sha1 = "6d4fa04343a7fc9f9cb9cff9558929f3d2752717"
+uuid = "da1fd8a2-8d9e-5ec2-8556-3022fb5608a2"
+version = "1.0.9"
 
 [[CodecZlib]]
 deps = ["TranscodingStreams", "Zlib_jll"]
@@ -452,6 +501,9 @@ deps = ["Compat", "Dates", "Mmap", "Printf", "Test", "UUIDs"]
 git-tree-sha1 = "129b104185df66e408edd6625d480b7f9e9823a0"
 uuid = "48062228-2e41-5def-b9a4-89aafe57970f"
 version = "0.9.18"
+
+[[FileWatching]]
+uuid = "7b1f6079-737a-58dc-b8bc-7a2ca5c1b5ee"
 
 [[FillArrays]]
 deps = ["LinearAlgebra", "Random", "SparseArrays", "Statistics"]
@@ -705,6 +757,12 @@ git-tree-sha1 = "b53380851c6e6664204efb2e62cd24fa5c47e4ba"
 uuid = "aacddb02-875f-59d6-b918-886e6ef4fbf8"
 version = "2.1.2+0"
 
+[[JuliaInterpreter]]
+deps = ["CodeTracking", "InteractiveUtils", "Random", "UUIDs"]
+git-tree-sha1 = "52617c41d2761cc05ed81fe779804d3b7f14fff7"
+uuid = "aa1ae85d-cabe-5617-a682-6adf51b2e16a"
+version = "0.9.13"
+
 [[KernelDensity]]
 deps = ["Distributions", "DocStringExtensions", "FFTW", "Interpolations", "StatsBase"]
 git-tree-sha1 = "591e8dc09ad18386189610acafb970032c519707"
@@ -816,6 +874,12 @@ version = "0.3.15"
 
 [[Logging]]
 uuid = "56ddb016-857b-54e1-b83d-db4d58db5568"
+
+[[LoweredCodeUtils]]
+deps = ["JuliaInterpreter"]
+git-tree-sha1 = "dedbebe234e06e1ddad435f5c6f4b85cd8ce55f7"
+uuid = "6f1432cf-f94c-5a45-995e-cdbf5db27b0b"
+version = "2.2.2"
 
 [[MKL_jll]]
 deps = ["Artifacts", "IntelOpenMP_jll", "JLLWrappers", "LazyArtifacts", "Libdl", "Pkg"]
@@ -1109,6 +1173,12 @@ deps = ["UUIDs"]
 git-tree-sha1 = "838a3a4188e2ded87a4f9f184b4b0d78a1e91cb7"
 uuid = "ae029012-a4dd-5104-9daa-d747884805df"
 version = "1.3.0"
+
+[[Revise]]
+deps = ["CodeTracking", "Distributed", "FileWatching", "JuliaInterpreter", "LibGit2", "LoweredCodeUtils", "OrderedCollections", "Pkg", "REPL", "Requires", "UUIDs", "Unicode"]
+git-tree-sha1 = "4d4239e93531ac3e7ca7e339f15978d0b5149d03"
+uuid = "295af30f-e4ad-537b-8983-00126c2a3abe"
+version = "3.3.3"
 
 [[Rmath]]
 deps = ["Random", "Rmath_jll"]
@@ -1455,6 +1525,7 @@ version = "3.5.0+0"
 # ╠═dd50c04b-bcf2-47af-bce9-e278aebdbb45
 # ╠═c621e134-9a76-46e4-a34e-26556e711aa0
 # ╠═1eb92c88-884e-4616-989f-dac76ee8d709
+# ╠═19cfa399-eed9-4e09-887b-2d373f1f5df5
 # ╠═d3549043-efde-4688-b4ea-fbee2e2bddb4
 # ╠═6d66ce74-a801-402b-bc78-e1c2be3e394c
 # ╠═bd41583b-1f4a-4925-aca7-499e9d5c55af
@@ -1482,5 +1553,10 @@ version = "3.5.0+0"
 # ╠═20da0654-f9c0-4445-bc63-0d4256171339
 # ╠═7fc25e19-47ea-4317-8242-2b73d0a7e982
 # ╠═3d5bd09a-ce68-41ba-9560-6a414cb5dbc8
+# ╠═65366d3c-ee39-44f3-b19c-a4544d87e3ba
+# ╠═b9ab6374-a98b-442f-8b36-d84765ba1597
+# ╠═9c95ae6b-c21a-438a-b44f-d1d022deb5ac
+# ╠═cc00a7f2-e581-4a97-8de5-65aa08768e5c
+# ╠═da56b545-ed87-4341-b81a-616845056132
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002

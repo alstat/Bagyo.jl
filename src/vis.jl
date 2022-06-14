@@ -7,16 +7,44 @@ using Makie
 
 abstract type AbstractCountry end
 
-struct PHL <: AbstractCountry
-    lon_0::Int64
+macro country(iso3, lon_0, lat_0, lonlims, latlims, area_monitored)
+    esc(quote
+        struct $iso3 <: AbstractCountry
+            lon_0::Int64
+			lat_0::Int64
+			lonlims::Tuple
+			latlims::Tuple
+			area_monitored::Tuple
+        end
+        
+        $iso3() = $iso3($data, $desc, $ar_label)
+    end)
+end
+
+phlar_lon = [115, 135, 135, 120, 120, 115, 115]    
+phlar_lat = [5, 5, 25, 25, 21, 15, 5]
+jpnar_lon = [125, 125, 150, 150, 125]
+jpnar_lon = [50, 20, 20, 50, 50]
+@country PHL 150 10 (100, 185) (-5, 55) (phlar_lon, phlar_lat)
+@country PHL 150 10 (100, 185) (-5, 55) (phlar_lon, phlar_lat)
+# struct PHL <: AbstractCountry
+#     lon_0::Int64
+#     lat_0::Int64
+#     lonlims::Tuple
+#     latlims::Tuple
+#     area_monitored::Tuple
+# end
+# par_lon = [115, 135, 135, 120, 120, 115, 115]    
+# par_lat = [5, 5, 25, 25, 21, 15, 5]
+# PHL() = PHL(150, 10, (100, 185), (-5, 55), (par_lon, par_lat))
+
+struct JPN <: AbstractCountry
+	lon_0::Int64
     lat_0::Int64
     lonlims::Tuple
     latlims::Tuple
     area_monitored::Tuple
 end
-par_lon = [115, 135, 135, 120, 120, 115, 115]    
-par_lat = [5, 5, 25, 25, 21, 15, 5]
-PHL() = PHL(150, 10, (100, 185), (-5, 55), (par_lon, par_lat))
 
 function Makie.plot(country::AbstractCountry, proj::Symbol=:gall,
 	countrystyle::NamedTuple=(

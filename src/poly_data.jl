@@ -7,6 +7,8 @@ end
 function Base.get(::Type{CountryPoly}, country::Symbol)
     if country == :phl
         Base.download(CountryPoly(:phl))
+    elseif country == :jpn
+        Base.download(CountryPoly(:jpn))
     else 
         throw("Unknown input data, current choice is :phl only")
     end
@@ -33,7 +35,27 @@ function Base.download(file::CountryPoly)
             try
                 mkdir(PHL_POLY)
             catch end
-            HTTP.download(PH_LOWRES_GEOJSON, joinpath(PHL_POLY, "phl_geo.json"))
+            HTTP.download(PHL_GEOJSON, joinpath(PHL_POLY, "phl_geo.json"))
+        end
+    elseif (file.data == :jpn)
+        try
+            mkdir(JPN_POLY)
+        catch end
+        
+        len_dir = false
+        try 
+            len_dir = length(readdir(JPN_POLY)) > 0 
+        catch 
+            len_dir = false
+        end
+
+        if len_dir
+            @info "Skipping download of JPN polygon, local DB folder has the file already. Run delete!(CountryPoly, :jpn) to delete and redownload again."
+        else
+            try
+                mkdir(JPN_POLY)
+            catch end
+            HTTP.download(JPN_GEOJSON, joinpath(JPN_POLY, "JPN_geo.json"))
         end
     else
         throw("Unknown input type $(file.data)")
