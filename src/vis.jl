@@ -17,34 +17,17 @@ macro country(iso3, lon_0, lat_0, lonlims, latlims, area_monitored)
 			area_monitored::Tuple
         end
         
-        $iso3() = $iso3($data, $desc, $ar_label)
+        $iso3() = $iso3($lon_0, $lat_0, $lonlims, $latlims, $area_monitored)
     end)
 end
 
-phlar_lon = [115, 135, 135, 120, 120, 115, 115]    
-phlar_lat = [5, 5, 25, 25, 21, 15, 5]
-jpnar_lon = [125, 125, 150, 150, 125]
-jpnar_lon = [50, 20, 20, 50, 50]
-@country PHL 150 10 (100, 185) (-5, 55) (phlar_lon, phlar_lat)
-@country PHL 150 10 (100, 185) (-5, 55) (phlar_lon, phlar_lat)
-# struct PHL <: AbstractCountry
-#     lon_0::Int64
-#     lat_0::Int64
-#     lonlims::Tuple
-#     latlims::Tuple
-#     area_monitored::Tuple
-# end
-# par_lon = [115, 135, 135, 120, 120, 115, 115]    
-# par_lat = [5, 5, 25, 25, 21, 15, 5]
-# PHL() = PHL(150, 10, (100, 185), (-5, 55), (par_lon, par_lat))
+const PHL_AR_LON = [115, 135, 135, 120, 120, 115, 115]    
+const PHL_AR_LAT = [5, 5, 25, 25, 21, 15, 5]
+const JPN_AR_LON = [125, 125, 150, 150, 125]; 
+const JPN_AR_LAT = [50, 20, 20, 50, 50]
 
-struct JPN <: AbstractCountry
-	lon_0::Int64
-    lat_0::Int64
-    lonlims::Tuple
-    latlims::Tuple
-    area_monitored::Tuple
-end
+@country PHL 150 10 (100, 185) (-5, 55) (PHL_AR_LON, PHL_AR_LAT)
+@country JPN 150 10 (100, 185) (-5, 55) (JPN_AR_LON, JPN_AR_LAT)
 
 function Makie.plot(country::AbstractCountry, proj::Symbol=:gall,
 	countrystyle::NamedTuple=(
