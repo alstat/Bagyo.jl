@@ -20,7 +20,8 @@ The following is an example of downloading and visualizing JMA RSMC best track d
 ```julia
 using Bagyo
 get(BestTrack, :jma)
-plot(BestTrack, :jma, :stere)
+meta, data = load(BestTrack, :jma)
+plot(data, :jma, :stere, :phl)
 ```
 <img src="docs/src/assets/phl.png" align="center"/>
 
