@@ -32,7 +32,7 @@ function Base.get(::Type{CountryPoly}, country::Symbol)
     elseif (country == :vnm)
         Base.download(CountryPoly(:vnm))
     else
-        throw("Unknown input data, current choice is :phl only")
+        throw("Unknown country code name, see ISO3 codes. Otherwise, the country code is not part of South East Asian countries.")
     end
 end
 
@@ -49,7 +49,7 @@ function download_poly(poly_folder::String, poly_url::String, poly_name::String)
     end
 
     if len_dir
-        @info "Skipping download of PHL polygon, local DB folder has the file already. Run delete!(CountryPoly, :phl) to delete and redownload again."
+        @info "Skipping download of $(uppercase(poly_name[1:3])) polygon, local DB folder has the file already. Run delete!(CountryPoly, :$(poly_name[1:3])) to delete and redownload again."
     else
         try
             mkdir(poly_folder)

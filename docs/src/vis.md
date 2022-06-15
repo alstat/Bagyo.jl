@@ -1,11 +1,77 @@
 # Visualization
-This section will illustrate how to use some visualization API of Bagyo.jl. This is currently at early stage, and further customization on the target countries will be added, at the moment we have Philippine Area of Responsibility (PAR) as the region of interest.
+This section will illustrate how to helper functions for visualizing the data. This is currently at the early stage, and further customization on the target countries will be added, at the moment it supports all countries affected by the Western-North Pacific cyclones. These are:
+```@raw html
+<table>
+	<thead>
+		<th>Country</th>
+		<th>ISO3</th>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Brunie</td>
+			<td>BRN</td>
+		</tr>
+		<tr>
+			<td>China</td>
+			<td>CHN</td>
+		</tr>
+		<tr>
+			<td>Japan</td>
+			<td>JPN</td>
+		</tr>
+		<tr>
+			<td>Cambodia</td>
+			<td>KHM</td>
+		</tr>
+		<tr>
+			<td>South Korea</td>
+			<td>KOR</td>
+		</tr>
+		<tr>
+			<td>Laos</td>
+			<td>LAO</td>
+		</tr>
+		<tr>
+			<td>Myanmar</td>
+			<td>MMR</td>
+		</tr>
+		<tr>
+			<td>Malaysia</td>
+			<td>MYS</td>
+		</tr>
+		<tr>
+			<td>Philippines</td>
+			<td>PHL</td>
+		</tr>
+		<tr>
+			<td>Russia</td>
+			<td>RUS</td>
+		</tr>
+		<tr>
+			<td>Thailand</td>
+			<td>THA</td>
+		</tr>
+		<tr>
+			<td>Taiwand</td>
+			<td>TWN</td>
+		</tr>
+		<tr>
+			<td>Vietnam</td>
+			<td>VNM</td>
+		</tr>
+	</tbody>
+</table>
+```
+The countries' ISO3 are used in all APIs of Bagyo.jl for representing the country.
+
+## First Plot
+To start with the base plot---a plot of the Western-North Pacific region and the countries surrounding it---with emphasis on a particular country and its climate region of interest, is done as follows:
 ```@setup abc
 using Pkg 
 Pkg.add("Makie")
 Pkg.add("Colors")
 ```
-```@repl abc
+```@example abc
 using Bagyo
 using Colors
 using Makie
@@ -15,9 +81,11 @@ f0
 ```@raw html
 <img src="https://github.com/alstat/Bagyo.jl/raw/master/docs/src/assets/phl0.svg" align="center"/>
 ```
-To plot the JMA Best Tracks, we use the `lines!` function as follows:
+The plot above gives emphasis on the Philippine Area of Responsibility (PAR).
+## Adding Best Tracks
+From the base plot, we can then add the Best Track using the `lines!` function.
 ```@repl abc
-get(BestTrack, :jma)
+get(BestTrack, :jma) # download the JMA Best Track
 meta, data = load(BestTrack, :jma);
 f1, a1 = with_theme(theme_dark(), resolution=(850, 650)) do
 	plot(PHL(), :stere);
@@ -33,18 +101,27 @@ f1
 ```@raw html
 <img src="https://github.com/alstat/Bagyo.jl/raw/master/docs/src/assets/phl1.svg" align="center"/>
 ```
-To emphasize on Japan and its climate region of interest, we have:
+We added extra theming from the plot above.
+
+## Multiple Climate Regions
+The example above shows us examples of highlighting one specific country's climate of interest. The following illustrates how to highlight or plot multiple countries' climate regions, these regions correspond to the following countries: Japan, Philippines, Thailand, Taiwan and Vietnam, respectively.
 ```@example abc
-get(BestTrack, :jma)
-meta, data = load(BestTrack, :jma);
-f1, a1 = with_theme(theme_dark(), resolution=(850, 650)) do
-	plot(JPN(), :stere);
+using Bagyo
+using Colors
+using Makie
+
+f2, a2 = with_theme(theme_dark(), resolution=(850, 650)) do
+	plot([JPN(), PHL(), THA(), TWN(), VNM()], :stere);
 end;
-lines!(a1, data, :jma, linewidth=1, color=RGBAf(1.0, 0.678431, 0.0, 0.15))
-a1.title = "Tropical Cyclone in Western-North Pacific";
-a1.titlesize = 25;
-a1.titlealign = :left;
-a1.xlabelpadding = -30;
-a1.ylabelpadding = 15;
-f1
+meta, data = load(BestTrack, :jma)
+lines!(a2, data, :jma, linewidth=1, color=RGBAf(1.0, 0.678431, 0.0, 0.15))
+a2.title = "Tropical Cyclone in Western-North Pacific";
+a2.titlesize = 25;
+a2.titlealign = :left;
+a2.ylabelpadding = 15;
+a2.xlabelpadding = -30;
+f2
+```
+```@raw html
+<img src="https://github.com/alstat/Bagyo.jl/raw/master/docs/src/assets/five_countries.svg" align="center"/>
 ```
