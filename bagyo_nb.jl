@@ -131,6 +131,8 @@ function plot(country::AbstractCountry, proj::Symbol=:gall,
 		poly!(ax, asialand; landstyle...)
 		poly!(ax, countryland; countrystyle...)
 		lines!(ax, country.area_monitored[1], country.area_monitored[2])
+		ax.xtickformat = "\n\n{:d}ᵒ"; 
+		ax.ytickformat = "{:d}ᵒ ";
 		return fig, ax
 	elseif country isa JPN
 		get(CountryPoly, :jpn)
@@ -142,6 +144,10 @@ function plot(country::AbstractCountry, proj::Symbol=:gall,
 		poly!(ax, asialand; landstyle...)
 		poly!(ax, countryland; countrystyle...)
 		lines!(ax, country.area_monitored[1], country.area_monitored[2])
+		ax.xlabel = "Longitude";
+		ax.ylabel = "Latitude";
+		ax.xtickformat = "\n\n{:d}ᵒ"; 
+		ax.ytickformat = "{:d}ᵒ ";
 		return fig, ax
 	end
 end
@@ -158,7 +164,7 @@ f1, a1 = with_theme(theme_dark(), resolution=(850, 650)) do
 end;
 
 # ╔═╡ 594ca17a-c8c4-48e6-8a28-0cb96d5236a9
-a1.xtickformat = "\n\n{:d}ᵒ"; a1.ytickformat = "{:d}ᵒ "; f1
+f1
 
 # ╔═╡ a036e744-e3a6-40f0-9552-7368c2a64175
 lines!(a1, data, :jma, linewidth=1, color=RGBAf(1.0, 0.678431, 0.0, 0.15))
@@ -178,12 +184,6 @@ a1.titlesize = 25;
 # ╔═╡ ce645404-e4e2-4c18-a260-f3b30f561e28
 a1.titlealign = :left;
 
-# ╔═╡ 03e936f8-acac-4549-903e-53e0ad2e030f
-a1.xlabel = "Longitude";
-
-# ╔═╡ 0c7985a1-2ed2-4dac-bf66-6e9df1f60431
-a1.ylabel = "Latitude";
-
 # ╔═╡ 4a476805-77a7-43b1-b0e9-e2a232904e9d
 a1.ylabelpadding = 15;
 
@@ -197,7 +197,74 @@ save("phl2.svg", f1)
 JPN()
 
 # ╔═╡ da56b545-ed87-4341-b81a-616845056132
-f1, g2
+f2, a2 = with_theme(theme_dark(), resolution=(850, 650)) do
+	plot(JPN(), :stere);
+end;
+
+# ╔═╡ f2ef9c28-f717-40aa-b333-43a154560374
+f2
+
+# ╔═╡ 56c48a27-4e5f-4265-b897-db3f58acb3c2
+lines!(a2, data, :jma, linewidth=1, color=RGBAf(1.0, 0.678431, 0.0, 0.15))
+
+# ╔═╡ 65f087ce-25f0-4f65-8576-7fdeae374147
+a2.title = "Tropical Cyclone in Western-North Pacific";
+
+# ╔═╡ f08f11f6-47d0-4e8e-a9f7-d86daf02bb0c
+a2.titlesize = 25;
+
+# ╔═╡ 9d21ca91-25a3-49ae-951e-401cfd65643a
+a2.titlealign = :left;
+
+# ╔═╡ 178c2274-d336-4059-8df5-f534d03cbe8e
+a2.ylabelpadding = 15;
+
+# ╔═╡ b82ea47f-3c58-4304-9750-5c3f9ff2f628
+a2.xlabelpadding = -30;
+
+# ╔═╡ 9955a544-b2dd-49f0-ad9d-775a468a549a
+f2
+
+# ╔═╡ eb3ce4cd-068e-4f40-8f92-bd87f4f726f8
+save("jpn.svg", f2) 
+
+# ╔═╡ bd586a93-155f-4c75-bf4b-400d5569d290
+readdir(".")
+
+# ╔═╡ de2193bd-ed3a-4b0f-bafd-24c9c0c0b9bb
+chnar_lon = [105, 105, 130, 130, 105]; chnar_lat = [45, 15, 15, 45, 45]
+
+# ╔═╡ 99176fd6-6272-4f29-ab80-599a5d869bd1
+@country CHN 150 10 (100, 185) (-5, 55) (chnar_lon, chnar_lat)
+
+# ╔═╡ 28396be8-18a3-45c8-909e-35e89969cdb2
+f3, a3 = with_theme(theme_dark(), resolution=(850, 650)) do
+	plot(CHN(), :stere);
+end;
+
+# ╔═╡ a4c99097-b2da-46ed-bdc0-c40a9877cb77
+
+
+# ╔═╡ 1abe4fa3-6fa2-4dcc-88f3-a1cda37b5c9c
+
+
+# ╔═╡ 4b07aa04-bc69-4e0f-ba9a-c518561915f6
+
+
+# ╔═╡ 2d043ac5-d5e2-4688-ac9c-3e618e7ecf32
+
+
+# ╔═╡ 033f655f-d6fe-4abe-adc3-42b2f1372af0
+
+
+# ╔═╡ 49f10475-2ea2-4a92-b2c3-0cb88bf1207f
+
+
+# ╔═╡ 28f79314-03bd-4908-9f0b-6d35294ed57e
+
+
+# ╔═╡ 74013d45-1e64-4e8e-b79b-3b5f0b327bc0
+
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """
@@ -1547,8 +1614,6 @@ version = "3.5.0+0"
 # ╠═82dcfcf5-0f6e-4a54-83bc-f8d3b3cc1aec
 # ╠═ab32624a-9399-4fb2-82b1-b97d98666098
 # ╠═ce645404-e4e2-4c18-a260-f3b30f561e28
-# ╠═03e936f8-acac-4549-903e-53e0ad2e030f
-# ╠═0c7985a1-2ed2-4dac-bf66-6e9df1f60431
 # ╠═4a476805-77a7-43b1-b0e9-e2a232904e9d
 # ╠═20da0654-f9c0-4445-bc63-0d4256171339
 # ╠═7fc25e19-47ea-4317-8242-2b73d0a7e982
@@ -1558,5 +1623,26 @@ version = "3.5.0+0"
 # ╠═9c95ae6b-c21a-438a-b44f-d1d022deb5ac
 # ╠═cc00a7f2-e581-4a97-8de5-65aa08768e5c
 # ╠═da56b545-ed87-4341-b81a-616845056132
+# ╠═f2ef9c28-f717-40aa-b333-43a154560374
+# ╠═56c48a27-4e5f-4265-b897-db3f58acb3c2
+# ╠═65f087ce-25f0-4f65-8576-7fdeae374147
+# ╠═f08f11f6-47d0-4e8e-a9f7-d86daf02bb0c
+# ╠═9d21ca91-25a3-49ae-951e-401cfd65643a
+# ╠═178c2274-d336-4059-8df5-f534d03cbe8e
+# ╠═b82ea47f-3c58-4304-9750-5c3f9ff2f628
+# ╠═9955a544-b2dd-49f0-ad9d-775a468a549a
+# ╠═eb3ce4cd-068e-4f40-8f92-bd87f4f726f8
+# ╠═bd586a93-155f-4c75-bf4b-400d5569d290
+# ╠═de2193bd-ed3a-4b0f-bafd-24c9c0c0b9bb
+# ╠═99176fd6-6272-4f29-ab80-599a5d869bd1
+# ╠═28396be8-18a3-45c8-909e-35e89969cdb2
+# ╠═a4c99097-b2da-46ed-bdc0-c40a9877cb77
+# ╠═1abe4fa3-6fa2-4dcc-88f3-a1cda37b5c9c
+# ╠═4b07aa04-bc69-4e0f-ba9a-c518561915f6
+# ╠═2d043ac5-d5e2-4688-ac9c-3e618e7ecf32
+# ╠═033f655f-d6fe-4abe-adc3-42b2f1372af0
+# ╠═49f10475-2ea2-4a92-b2c3-0cb88bf1207f
+# ╠═28f79314-03bd-4908-9f0b-6d35294ed57e
+# ╠═74013d45-1e64-4e8e-b79b-3b5f0b327bc0
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002

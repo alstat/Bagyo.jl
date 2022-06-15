@@ -26,14 +26,25 @@ lines!(a1, data, :jma, linewidth=1, color=RGBAf(1.0, 0.678431, 0.0, 0.15))
 a1.title = "Tropical Cyclone in Western-North Pacific";
 a1.titlesize = 25;
 a1.titlealign = :left;
-a1.xlabel = "Longitude";
-a1.ylabel = "Latitude";
 a1.xlabelpadding = -30;
 a1.ylabelpadding = 15;
-a1.xtickformat = "\n\n{:d}ᵒ"; 
-a1.ytickformat = "{:d}ᵒ ";
 f1
 ```
 ```@raw html
 <img src="https://github.com/alstat/Bagyo.jl/raw/master/docs/src/assets/phl1.svg" align="center"/>
+```
+To emphasize on Japan and its climate region of interest, we have:
+```@example abc
+get(BestTrack, :jma)
+meta, data = load(BestTrack, :jma);
+f1, a1 = with_theme(theme_dark(), resolution=(850, 650)) do
+	plot(JPN(), :stere);
+end;
+lines!(a1, data, :jma, linewidth=1, color=RGBAf(1.0, 0.678431, 0.0, 0.15))
+a1.title = "Tropical Cyclone in Western-North Pacific";
+a1.titlesize = 25;
+a1.titlealign = :left;
+a1.xlabelpadding = -30;
+a1.ylabelpadding = 15;
+f1
 ```
