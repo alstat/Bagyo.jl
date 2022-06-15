@@ -14,49 +14,57 @@ function Base.get(::Type{CountryPoly}, country::Symbol)
     end
 end
 
+function download_poly(poly_url::String, poly_folder::String, poly_name::String)
+    try
+        mkdir(poly_folder)
+    catch end
+    
+    len_dir = false
+    try 
+        len_dir = length(readdir(poly_folder)) > 0 
+    catch 
+        len_dir = false
+    end
+
+    if len_dir
+        @info "Skipping download of PHL polygon, local DB folder has the file already. Run delete!(CountryPoly, :phl) to delete and redownload again."
+    else
+        try
+            mkdir(poly_folder)
+        catch end
+        HTTP.download(poly_url, joinpath(poly_folder, poly_name))
+    end
+end
+
 function Base.download(file::CountryPoly)
     try mkdir(DB) catch end
     try mkdir(DB_POLY) catch end
     if (file.data == :phl)
-        try
-            mkdir(PHL_POLY)
-        catch end
-        
-        len_dir = false
-        try 
-            len_dir = length(readdir(PHL_POLY)) > 0 
-        catch 
-            len_dir = false
-        end
-
-        if len_dir
-            @info "Skipping download of PHL polygon, local DB folder has the file already. Run delete!(CountryPoly, :phl) to delete and redownload again."
-        else
-            try
-                mkdir(PHL_POLY)
-            catch end
-            HTTP.download(PHL_GEOJSON, joinpath(PHL_POLY, "phl_geo.json"))
-        end
+        download_poly(PHL_POLY, PHL_GEOJSON, "phl_geo.json")
     elseif (file.data == :jpn)
-        try
-            mkdir(JPN_POLY)
-        catch end
-        
-        len_dir = false
-        try 
-            len_dir = length(readdir(JPN_POLY)) > 0 
-        catch 
-            len_dir = false
-        end
-
-        if len_dir
-            @info "Skipping download of JPN polygon, local DB folder has the file already. Run delete!(CountryPoly, :jpn) to delete and redownload again."
-        else
-            try
-                mkdir(JPN_POLY)
-            catch end
-            HTTP.download(JPN_GEOJSON, joinpath(JPN_POLY, "JPN_geo.json"))
-        end
+        download_poly(JPN_POLY, JPN_GEOJSON, "jpn_geo.json")
+    elseif (file.data == :khm)
+        download_poly(KHM_POLY, KHM_GEOJSON, "khm_geo.json")
+    elseif (file.data == :kor)
+        download_poly(KOR_POLY, KOR_GEOJSON, "kor_geo.json")
+    elseif (file.data == :lao)
+        download_poly(LAO_POLY, LAO_GEOJSON, "lao_geo.json")
+    elseif (file.data == :mmr)
+        download_poly(MMR_POLY, MMR_GEOJSON, "mmr_geo.json")
+    elseif (file.data == :mng)
+        download_poly(MNG_POLY, MNG_GEOJSON, "mng_geo.json")
+    elseif (file.data == :mys)
+        download_poly(MYS_POLY, MYS_GEOJSON, "mys_geo.json")
+    elseif (file.data == :phl)
+        download_poly(PHL_POLY, PHL_GEOJSON, "phl_geo.json")
+    elseif (file.data == :RUS)
+        download_poly(RUS_POLY, RUS_GEOJSON, "rus_geo.json")
+    elseif (file.data == :THA)
+        download_poly(THA_POLY, THA_GEOJSON, "tha_geo.json")
+    elseif (file.data == :TWN)
+        download_poly(TWN_POLY, TWN_GEOJSON, "twn_geo.json")
+    elseif (file.data == :VNM)
+        download_poly(VNM_POLY, VNM_GEOJSON, "vnm_geo.json")
     else
         throw("Unknown input type $(file.data)")
     end
