@@ -26,6 +26,7 @@ using Makie
 f, a = with_theme(theme_dark(), resolution=(850, 650)) do
 	plot([JPN(), PHL(), THA(), TWN(), VNM()], :stere);
 end;
+get(BestTrack, :jma)
 meta, data = load(BestTrack, :jma)
 lines!(a, data, :jma, linewidth=1, color=RGBAf(1.0, 0.678431, 0.0, 0.15))
 a.title = "Tropical Cyclone in Western-North Pacific";
