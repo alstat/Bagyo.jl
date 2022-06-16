@@ -69,7 +69,10 @@ To start with the base plot---a plot of the Western-North Pacific region and the
 ```@setup abc
 using Pkg 
 Pkg.add("Makie")
+Pkg.add("CairoMakie")
 Pkg.add("Colors")
+using CairoMakie
+CairoMakie.activate!(type = "svg")
 ```
 ```@example abc
 using Bagyo
@@ -78,13 +81,10 @@ using Makie
 f0, a0 = plot(PHL(), :stere);
 f0
 ```
-```@raw html
-<img src="https://github.com/alstat/Bagyo.jl/raw/master/docs/src/assets/phl0.svg" align="center"/>
-```
 The plot above gives emphasis on the Philippine Area of Responsibility (PAR).
 ## Adding Best Tracks
 From the base plot, we can then add the Best Track using the `lines!` function.
-```@repl abc
+```@example abc
 get(BestTrack, :jma) # download the JMA Best Track
 meta, data = load(BestTrack, :jma);
 f1, a1 = with_theme(theme_dark(), resolution=(850, 650)) do
@@ -97,9 +97,6 @@ a1.titlealign = :left;
 a1.xlabelpadding = -30;
 a1.ylabelpadding = 15;
 f1
-```
-```@raw html
-<img src="https://github.com/alstat/Bagyo.jl/raw/master/docs/src/assets/phl1.svg" align="center"/>
 ```
 We added extra theming from the plot above.
 
