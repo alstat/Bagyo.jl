@@ -17,7 +17,7 @@ julia> Pkg.add("Bagyo")
 ```
 
 ## Usage
-The following example illustrate the functionality for downloading and visualizing the data with emphasis on five regions of climate interest for Japan, Philippines, Thailand, Taiwan and Vietnam, respectively.
+The following example illustrates the functionality for downloading and visualizing the data with emphasis on five regions of climate interests for Japan, Philippines, Thailand, Taiwan and Vietnam, respectively.
 ```julia
 using Bagyo
 using Colors
