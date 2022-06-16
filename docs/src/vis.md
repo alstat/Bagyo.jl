@@ -119,6 +119,3 @@ a2.ylabelpadding = 15;
 a2.xlabelpadding = -30;
 f2
 ```
-```@raw html
-<img src="https://github.com/alstat/Bagyo.jl/raw/master/docs/src/assets/five_countries.svg" align="center"/>
-```
