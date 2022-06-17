@@ -99,8 +99,17 @@ function Makie.lines!(axis::Makie.Axis, data::DataFrame,
 		if i % 100 == 0
 			@info "Processing $(i)th track"
 		end
-		track = filter(x -> x.INTERNATIONAL_ID === idcs[i], data)
-		lines!(axis, track[!, longitude]./10, track[!, latitude]./10; kwargs...)
+		if trackstype == :jma
+			track = filter(x -> x.INTERNATIONAL_ID === idcs[i], data)
+			lines!(axis, track[!, longitude]./10, track[!, latitude]./10; kwargs...)
+		elseif trackstype == :ibtracs
+			track = filter(x -> x.SID === idcs[i], data)
+			lines!(axis, track[!, longitude], track[!, latitude]; kwargs...)
+		end
 	end
-	lines!(axis, track[!, longitude]./10, track[!, latitude]./10; kwargs...)
+	if trackstype == :jma
+		lines!(axis, track[!, longitude]./10, track[!, latitude]./10; kwargs...)
+	elseif trackstype == :ibtracs
+		lines!(axis, track[!, longitude], track[!, latitude]; kwargs...)
+	end
 end

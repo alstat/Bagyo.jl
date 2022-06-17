@@ -9,6 +9,6 @@ include("poly_data.jl")
 
 export delete!, load, get, plot, lines!
 export AbstractCountry, BestTrack, CountryPoly
-export BRN, CHN, JPN, KHM, KOR, LAO, MMR, MYS, PHL, RUS, THA, TWN, VNM
+export BRN, CHN, JPN, KHM, KOR, LAO, MMR, MYS, PHL, PRK, RUS, THA, TWN, VNM
 
 end # module

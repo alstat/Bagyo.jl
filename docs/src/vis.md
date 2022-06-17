@@ -44,6 +44,10 @@ This section will illustrate how to helper functions for visualizing the data. T
 			<td>PHL</td>
 		</tr>
 		<tr>
+			<td>North Korea</td>
+			<td>PRK</td>
+		</tr>
+		<tr>
 			<td>Russia</td>
 			<td>RUS</td>
 		</tr>
@@ -120,22 +124,23 @@ a2.ylabelpadding = 15;
 a2.xlabelpadding = -30;
 f2
 ```
+## Using IBTrACS
 Another example using IBTrACS,
 ```@example abc
 using Bagyo
 using Colors
 using Makie
 
-f2, a2 = with_theme(theme_dark(), resolution=(850, 650)) do
+f3, a3 = with_theme(theme_dark(), resolution=(850, 650)) do
 	plot([JPN(), PHL(), THA(), TWN(), VNM()], :stere);
 end;
 get(BestTrack, :ibtracs) # download the JMA Best Track, Bagyo.jl automatically skips this if data previously downloaded already
-meta, data = load(BestTrack, :ibtracs)
-lines!(a2, data, :ibtracs, linewidth=1, color=RGBAf(1.0, 0.678431, 0.0, 0.15))
-a2.title = "Tropical Cyclone in Western-North Pacific";
-a2.titlesize = 25;
-a2.titlealign = :left;
-a2.ylabelpadding = 15;
-a2.xlabelpadding = -30;
-f2
+data = load(BestTrack, :ibtracs)
+lines!(a3, data, :ibtracs, linewidth=1, color=RGBAf(1.0, 0.678431, 0.0, 0.15))
+a3.title = "Tropical Cyclone in Western-North Pacific";
+a3.titlesize = 25;
+a3.titlealign = :left;
+a3.ylabelpadding = 15;
+a3.xlabelpadding = -30;
+f3
 ```
