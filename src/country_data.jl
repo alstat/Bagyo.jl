@@ -24,6 +24,8 @@ const KHM_AR_LON = [100, 100, 112, 112, 100];
 const KHM_AR_LAT = [18, 5, 5, 18, 18];
 const KOR_AR_LON = [120, 120, 132, 132, 120]; 
 const KOR_AR_LAT = [43, 26, 26, 43, 43];
+const PRK_AR_LON = [120, 120, 132, 132, 120]; 
+const PRK_AR_LAT = [48, 31, 31, 48, 48];
 const LAO_AR_LON = [97, 97, 113, 113, 97]; 
 const LAO_AR_LAT = [25, 7, 7, 25, 25];
 const MMR_AR_LON = [90, 90, 115, 115, 90]; 
@@ -50,6 +52,7 @@ const VNM_AR_LAT = [23, 11, 4, 4, 11, 20, 20, 23, 23];
 @country MMR 150 10 (100, 185) (-5, 55) (MMR_AR_LON, MMR_AR_LAT)
 @country MYS 150 10 (100, 185) (-5, 55) (MYS_AR_LON, MYS_AR_LAT)
 @country PHL 150 10 (100, 185) (-5, 55) (PHL_AR_LON, PHL_AR_LAT)
+@country PRK 150 10 (100, 185) (-5, 55) (PRK_AR_LON, PRK_AR_LAT)
 @country RUS 150 10 (100, 185) (-5, 55) (RUS_AR_LON, RUS_AR_LAT)
 @country THA 150 10 (100, 185) (-5, 55) (THA_AR_LON, THA_AR_LAT)
 @country TWN 150 10 (100, 185) (-5, 55) (TWN_AR_LON, TWN_AR_LAT)
@@ -74,6 +77,8 @@ function countrydata(country::AbstractCountry)
 		return (:mys, MYS_POLY, "mys_geo.json")
 	elseif country isa PHL
 		return (:phl, PHL_POLY, "phl_geo.json")
+	elseif country isa PRK
+		return (:prk, PRK_POLY, "prk_geo.json")
 	elseif country isa RUS
 		return (:rus, RUS_POLY, "rus_geo.json")
 	elseif country isa THA

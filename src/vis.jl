@@ -85,15 +85,22 @@ end
 function Makie.lines!(axis::Makie.Axis, data::DataFrame, 
 	trackstype::Symbol; kwargs...)
 	if trackstype == :jma
-		track = DataFrame()
-		idcs = unique(data[!, :INTERNATIONAL_ID])
-		for i in 1:(length(idcs))
-			if i % 100 == 0
-				@info "Processing $(i)th track"
-			end
-			track = filter(x -> x.INTERNATIONAL_ID === idcs[i], data)
-			lines!(axis, track[!, :LONGITUDE]./10, track[!, :LATITUDE]./10; kwargs...)
-		end
-		lines!(axis, track[!, :LONGITUDE]./10, track[!, :LATITUDE]./10; kwargs...)
+		trackid = :INTERNATIONAL_ID
+		longitude = :LONGITUDE
+		latitude = :LATITUDE
+	elseif trackstype == :ibtracs
+		trackid = :SID
+		longitude = :LON
+		latitude = :LAT
 	end
+	track = DataFrame(); 
+	idcs = unique(data[!, trackid])
+	for i in 1:(length(idcs))
+		if i % 100 == 0
+			@info "Processing $(i)th track"
+		end
+		track = filter(x -> x.INTERNATIONAL_ID === idcs[i], data)
+		lines!(axis, track[!, longitude]./10, track[!, latitude]./10; kwargs...)
+	end
+	lines!(axis, track[!, longitude]./10, track[!, latitude]./10; kwargs...)
 end
