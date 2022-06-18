@@ -6,7 +6,7 @@ using GeoMakie
 using Makie
 
 function Makie.plot(countries::Array{AbstractCountry}, 
-	proj::Symbol=:gall,
+	proj::Symbol=:gall;
 	countrystyle::NamedTuple=(
 		color=colorant"#c9007c",
 		strokecolor=:gray, 
@@ -55,7 +55,7 @@ function Makie.plot(countries::Array{AbstractCountry},
 	return fig, ax
 end
 
-function Makie.plot(country::AbstractCountry, proj::Symbol=:gall,
+function Makie.plot(country::AbstractCountry, proj::Symbol=:gall;
 	countrystyle::NamedTuple=(
 		color=colorant"#c9007c",
 		strokecolor=:gray, 
