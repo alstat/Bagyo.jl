@@ -132,7 +132,7 @@ end;
 get(BestTrack, :jma) # download the JMA Best Track, Bagyo.jl automatically skips this if data previously downloaded already
 meta, data = load(BestTrack, :jma)
 lines!(a2, data, :jma, linewidth=1, color=RGBAf(1.0, 0.678431, 0.0, 0.15))
-a2.title = "Tropical Cyclone Tracks in Western-North Pacific using JMA";
+a2.title = "Tropical Cyclone Tracks in WNP using JMA";
 a2.titlesize = 25;
 a2.titlealign = :left;
 a2.ylabelpadding = 15;
@@ -155,7 +155,7 @@ end;
 get(BestTrack, :ibtracs) # download the IBTrACS Best Track, Bagyo.jl automatically skips this if data previously downloaded already
 data = load(BestTrack, :ibtracs)
 lines!(a3, data, :ibtracs, linewidth=1, color=RGBAf(1.0, 0.678431, 0.0, 0.15))
-a3.title = "Tropical Cyclone Tracks in Western-North Pacific using IBTrACS";
+a3.title = "Tropical Cyclone Tracks in WNP using IBTrACS";
 a3.titlesize = 25;
 a3.titlealign = :left;
 a3.ylabelpadding = 15;
