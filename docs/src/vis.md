@@ -104,16 +104,17 @@ a1.xlabelpadding = -30;
 a1.ylabelpadding = 15;
 f1
 ```
-!!! info Note
+
+!!! info "Note"
     To run the above code, you need to install the Colors.jl and Makie.jl as follows:
 	```julia
 	using Pkg
 	Pkg.add("Colors")
 	Pkg.add("Makie")
 	```
-!!! info Note
+!!! info "Note"
     The code `get(BestTrack, :jma)` downloads the JMA Best Track data from the JMA website. Once downloaded, succeeding run will skip this.
-!!! info Note
+!!! info "Note"
     First time plot of the target country, in this case, the Philippines (specified by `PHL()` in the `plot` function), downloads the polygon for this country. Once downloaded, succeeding run will skip this.
 
 We added extra theming from the plot above.
