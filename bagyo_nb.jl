@@ -48,3 +48,26 @@ a4.ylabelpadding = 15;
 a4.xlabelpadding = -30;
 f4
 save("five_countries_ibtracs.svg", f4)
+
+
+
+get(BestTrack, :ibtracs) # download the IBTrACS Best Track
+data = load(BestTrack, :ibtracs);
+country = PHL(
+	125, # set the center longitude of the map
+	10, # set the center latitude of the map
+	(110, 145), # set the longitude limits of the map
+	(0, 28), # set the latitude limits of the map
+	(PHL_AR_LON, PHL_AR_LAT) # add the tuples of arrays for the
+							 # longitude and latitude of the climate area monitored
+)	
+f4, a4 = with_theme(theme_dark(), resolution=(770, 650)) do
+	plot(country, :gall);
+end;
+lines!(a4, data, :ibtracs, linewidth=1, color=RGBAf(1.0, 0.678431, 0.0, 0.15))
+a4.title = "Tropical Cyclone in the PAR";
+a4.titlesize = 25;
+a4.titlealign = :left;
+a4.xlabelpadding = -25;
+a4.ylabelpadding = 15;
+f4

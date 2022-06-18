@@ -134,7 +134,7 @@ using Makie
 f3, a3 = with_theme(theme_dark(), resolution=(850, 650)) do
 	plot([JPN(), PHL(), THA(), TWN(), VNM()], :stere);
 end;
-get(BestTrack, :ibtracs) # download the JMA Best Track, Bagyo.jl automatically skips this if data previously downloaded already
+get(BestTrack, :ibtracs) # download the IBTrACS Best Track, Bagyo.jl automatically skips this if data previously downloaded already
 data = load(BestTrack, :ibtracs)
 lines!(a3, data, :ibtracs, linewidth=1, color=RGBAf(1.0, 0.678431, 0.0, 0.15))
 a3.title = "Tropical Cyclone in Western-North Pacific";
@@ -143,4 +143,29 @@ a3.titlealign = :left;
 a3.ylabelpadding = 15;
 a3.xlabelpadding = -30;
 f3
+```
+IBTrACS has 4000+ tropical cyclone tracks compared to only 1800+ cyclone tracks recorded by JMA. 
+## Zooming to Countries' Climate Boundary
+To zoom in and focus on one country, the configuration needs to be specified at a country Bagyo.jl type. For example,
+```@example abc
+get(BestTrack, :ibtracs) # download the IBTrACS Best Track
+data = load(BestTrack, :ibtracs);
+country = PHL(
+	125, # set the center longitude of the map
+	10, # set the center latitude of the map
+	(110, 145), # set the longitude limits of the map
+	(0, 28), # set the latitude limits of the map
+	(PHL_AR_LON, PHL_AR_LAT) # add the tuples of arrays for the
+							 # longitude and latitude of the climate area monitored
+)	
+f4, a4 = with_theme(theme_dark(), resolution=(770, 650)) do
+	plot(country, :gall);
+end;
+lines!(a4, data, :ibtracs, linewidth=1, color=RGBAf(1.0, 0.678431, 0.0, 0.15))
+a4.title = "Tropical Cyclone in the PAR";
+a4.titlesize = 25;
+a4.titlealign = :left;
+a4.xlabelpadding = -25;
+a4.ylabelpadding = 15;
+f4
 ```
