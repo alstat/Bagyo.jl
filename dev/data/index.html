@@ -3,9 +3,9 @@
 │   source = &quot;https://www.jma.go.jp/jma/jma-eng/jma-center/rsmc-hp-pub-eg/Besttracks/bst_all.zip&quot;
 │   dest = &quot;/home/runner/work/Bagyo.jl/Bagyo.jl/src/../db/jma/bt/bst_all.zip&quot;
 │   progress = 1.0
-│   time_taken = &quot;0.19 s&quot;
+│   time_taken = &quot;0.07 s&quot;
 │   time_remaining = &quot;0.0 s&quot;
-│   average_speed = &quot;3.792 MiB/s&quot;
+│   average_speed = &quot;9.530 MiB/s&quot;
 │   downloaded = &quot;722.181 KiB&quot;
 │   remaining = &quot;0 bytes&quot;
 └   total = &quot;722.181 KiB&quot;
@@ -17,40 +17,40 @@
 &quot;/home/runner/work/Bagyo.jl/Bagyo.jl/src/../db/jma/bt/track_data.csv&quot;</code></pre><p>As for IBTrACS, replace <code>:jma</code> with <code>:ibtracs</code>:</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; get(BestTrack, :ibtracs)</code><code class="nohighlight hljs ansi" style="display:block;">┌ Info: Downloading
 │   source = &quot;https://www.ncei.noaa.gov/data/international-best-track-archive-for-climate-stewardship-ibtracs/v04r00/access/csv/ibtracs.WP.list.v04r00.csv&quot;
 │   dest = &quot;/home/runner/work/Bagyo.jl/Bagyo.jl/src/../db/ibtracs/bt/bst_all.csv&quot;
-│   progress = 0.1755
-│   time_taken = &quot;1.01 s&quot;
-│   time_remaining = &quot;4.75 s&quot;
-│   average_speed = &quot;18.142 MiB/s&quot;
-│   downloaded = &quot;18.359 MiB&quot;
-│   remaining = &quot;86.235 MiB&quot;
+│   progress = 0.1295
+│   time_taken = &quot;1.05 s&quot;
+│   time_remaining = &quot;7.03 s&quot;
+│   average_speed = &quot;12.952 MiB/s&quot;
+│   downloaded = &quot;13.548 MiB&quot;
+│   remaining = &quot;91.046 MiB&quot;
 └   total = &quot;104.594 MiB&quot;
 ┌ Info: Downloading
 │   source = &quot;https://www.ncei.noaa.gov/data/international-best-track-archive-for-climate-stewardship-ibtracs/v04r00/access/csv/ibtracs.WP.list.v04r00.csv&quot;
 │   dest = &quot;/home/runner/work/Bagyo.jl/Bagyo.jl/src/../db/ibtracs/bt/bst_all.csv&quot;
-│   progress = 0.5305
-│   time_taken = &quot;2.01 s&quot;
-│   time_remaining = &quot;1.78 s&quot;
-│   average_speed = &quot;27.564 MiB/s&quot;
-│   downloaded = &quot;55.487 MiB&quot;
-│   remaining = &quot;49.107 MiB&quot;
+│   progress = 0.3693
+│   time_taken = &quot;2.06 s&quot;
+│   time_remaining = &quot;3.51 s&quot;
+│   average_speed = &quot;18.776 MiB/s&quot;
+│   downloaded = &quot;38.622 MiB&quot;
+│   remaining = &quot;65.972 MiB&quot;
 └   total = &quot;104.594 MiB&quot;
 ┌ Info: Downloading
 │   source = &quot;https://www.ncei.noaa.gov/data/international-best-track-archive-for-climate-stewardship-ibtracs/v04r00/access/csv/ibtracs.WP.list.v04r00.csv&quot;
 │   dest = &quot;/home/runner/work/Bagyo.jl/Bagyo.jl/src/../db/ibtracs/bt/bst_all.csv&quot;
-│   progress = 0.8859
-│   time_taken = &quot;3.01 s&quot;
-│   time_remaining = &quot;0.39 s&quot;
-│   average_speed = &quot;30.744 MiB/s&quot;
-│   downloaded = &quot;92.661 MiB&quot;
-│   remaining = &quot;11.933 MiB&quot;
+│   progress = 0.6999
+│   time_taken = &quot;3.06 s&quot;
+│   time_remaining = &quot;1.31 s&quot;
+│   average_speed = &quot;23.937 MiB/s&quot;
+│   downloaded = &quot;73.200 MiB&quot;
+│   remaining = &quot;31.394 MiB&quot;
 └   total = &quot;104.594 MiB&quot;
 ┌ Info: Downloading
 │   source = &quot;https://www.ncei.noaa.gov/data/international-best-track-archive-for-climate-stewardship-ibtracs/v04r00/access/csv/ibtracs.WP.list.v04r00.csv&quot;
 │   dest = &quot;/home/runner/work/Bagyo.jl/Bagyo.jl/src/../db/ibtracs/bt/bst_all.csv&quot;
 │   progress = 1.0
-│   time_taken = &quot;3.36 s&quot;
+│   time_taken = &quot;3.97 s&quot;
 │   time_remaining = &quot;0.0 s&quot;
-│   average_speed = &quot;31.176 MiB/s&quot;
+│   average_speed = &quot;26.326 MiB/s&quot;
 │   downloaded = &quot;104.594 MiB&quot;
 │   remaining = &quot;0 bytes&quot;
 └   total = &quot;104.594 MiB&quot;
@@ -118,4 +118,4 @@
        delete!(BestTrack, :jma)</code><code class="nohighlight hljs ansi" style="display:block;">[ Info: JMA Best Track DB successfully deleted.</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; # delete all JMA Data folders and files
        delete!(:jma)</code><code class="nohighlight hljs ansi" style="display:block;">[ Info: JMA DB successfully deleted.</code></pre><p>For IBTrACS,</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; # delete only the Best Track of IBTrACS Data
        delete!(BestTrack, :ibtracs)</code><code class="nohighlight hljs ansi" style="display:block;">[ Info: IBTrACS Best Track DB successfully deleted.</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; # delete all IBTrACS Data folders and files
-       delete!(:ibtracs)</code><code class="nohighlight hljs ansi" style="display:block;">[ Info: IBTrACS DB successfully deleted.</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../">« Home</a><a class="docs-footer-nextpage" href="../vis/">Data Visualization »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.19 on <span class="colophon-date" title="Saturday 18 June 2022 14:33">Saturday 18 June 2022</span>. Using Julia version 1.7.3.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+       delete!(:ibtracs)</code><code class="nohighlight hljs ansi" style="display:block;">[ Info: IBTrACS DB successfully deleted.</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../">« Home</a><a class="docs-footer-nextpage" href="../vis/">Data Visualization »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.19 on <span class="colophon-date" title="Saturday 18 June 2022 17:10">Saturday 18 June 2022</span>. Using Julia version 1.7.3.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
