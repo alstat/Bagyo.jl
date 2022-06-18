@@ -12,6 +12,7 @@ makedocs(
         "Home" => "index.md",
         "Data Extraction" => "data.md",
         "Data Visualization" => "vis.md",
+        "Data Manipulation" => "data_manipulation.md",
         "API" => "api.md"
     ]
 )

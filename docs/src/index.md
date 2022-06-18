@@ -16,8 +16,9 @@ julia> Pkg.add("Bagyo")
 ```@contents
 Pages = [
     "data.md",
-    "vis.md"
-    "api.md"
+    "vis.md",
+    "api.md",
+    "data_manipulation.md"
 ]
 Depth = 2
 ```
