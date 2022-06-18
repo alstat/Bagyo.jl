@@ -1,5 +1,5 @@
 # Visualization
-This section will illustrate how to helper functions for visualizing the data. This is currently at the early stage, and further customization on the target countries will be added, at the moment it supports all countries affected by the Western-North Pacific cyclones. These are:
+This section will illustrate how to use the APIs for visualizing the data. At the moment it supports all countries affected by the Western-North Pacific (WNP) cyclones. These are:
 ```@raw html
 <table>
 	<thead>
@@ -69,7 +69,7 @@ This section will illustrate how to helper functions for visualizing the data. T
 The countries' ISO3 are used in all APIs of Bagyo.jl for representing the country.
 
 ## First Plot
-To start with the base plot---a plot of the Western-North Pacific region and the countries surrounding it---with emphasis on a particular country and its climate region of interest, is done as follows:
+To start with the base plot--a plot of the WNP region and the countries surrounding it--with emphasis on a particular country and its climate region of interest, is done as follows:
 ```@setup abc
 using Pkg 
 Pkg.add("Makie")
@@ -85,7 +85,7 @@ f0
 ```
 The plot above gives emphasis on the Philippine Area of Responsibility (PAR).
 ## Adding Best Tracks
-From the base plot, we can then add the Best Track using the `lines!` function.
+From the base plot, we can then add the Best Track data using the `lines!` function.
 ```@example abc
 using Bagyo
 using Colors
@@ -97,7 +97,7 @@ f1, a1 = with_theme(theme_dark(), resolution=(850, 650)) do
 	plot(PHL(), :stere);
 end;
 lines!(a1, data, :jma, linewidth=1, color=RGBAf(1.0, 0.678431, 0.0, 0.15))
-a1.title = "Tropical Cyclone Tracks in Western-North Pacific using JMA";
+a1.title = "Tropical Cyclone Tracks in WNP using JMA";
 a1.titlesize = 25;
 a1.titlealign = :left;
 a1.xlabelpadding = -30;
@@ -106,7 +106,7 @@ f1
 ```
 
 !!! info "Note"
-    To run the above code, you need to install the Colors.jl and Makie.jl as follows:
+    To run the above code, you need to install the Colors.jl and Makie.jl packages as follows:
 	```julia
 	using Pkg
 	Pkg.add("Colors")
@@ -115,12 +115,12 @@ f1
 !!! info "Note"
     The code `get(BestTrack, :jma)` downloads the JMA Best Track data from the JMA website. Once downloaded, succeeding run will skip this.
 !!! info "Note"
-    First time plot of the target country, in this case, the Philippines (specified by `PHL()` in the `plot` function), downloads the polygon for this country. Once downloaded, succeeding run will skip this.
+    First time plotting of the target country, in this case the Philippines (specified by `PHL()` in the `plot` function), downloads the polygon for the input country. Once downloaded, succeeding run will skip this.
 
-We added extra theming from the plot above.
+We added extra theming to the plot above.
 
 ## Multiple Climate Regions
-The example above shows us examples of highlighting one specific country's climate of interest. The following illustrates how to highlight or plot multiple countries' climate regions, these regions correspond to the following countries: Japan, Philippines, Thailand, Taiwan and Vietnam, respectively.
+The following illustrates how to highlight or plot multiple countries' climate regions, these regions correspond to the following countries: Japan, Philippines, Thailand, Taiwan and Vietnam, respectively.
 ```@example abc
 using Bagyo
 using Colors
@@ -139,7 +139,7 @@ a2.ylabelpadding = 15;
 a2.xlabelpadding = -30;
 f2
 ```
-!!! warning "Countries' Climate Boundaries"
+!!! warning "Countries' Climate Regions/Boundaries"
     The climate boundary above are not official, except for the Philippines. The rest of the climate boundaries of other countries were subjectively provided. Users can specify this, see example in [Zooming to Countries' Climate Boundary](https://alstat.github.io/Bagyo.jl/dev/vis/#Zooming-to-Countries'-Climate-Boundary).
 
 ## Using IBTrACS
@@ -165,7 +165,7 @@ f3
 IBTrACS has 4000+ tropical cyclone tracks compared to only 1800+ cyclone tracks recorded by JMA. 
 
 ## Zooming to Countries' Climate Boundary
-To zoom in and focus on one country, the configuration needs to be specified at a country Bagyo.jl type. For example,
+To zoom in and focus on one country, the configuration needs to be specified at inside the Bagyo.jl types for countries (e.g. `PHL`, `THA`, etc.). For example,
 ```@example abc
 get(BestTrack, :ibtracs) # download the IBTrACS Best Track
 data = load(BestTrack, :ibtracs);
@@ -189,10 +189,10 @@ a4.ylabelpadding = 15;
 f4
 ```
 !!! info "Country Geodata Specification"
-    The specification of the geodata for the `PHL` above is also available for other countries available for plotting in Bagyo.jl
+    The specification of the geodata for the `PHL` above is also available for other countries available for plotting the Bagyo.jl
 
 ## Theming
-[Theming](https://makie.juliaplots.org/stable/documentation/theming/predefined_themes/) is done by using Makie.jl. You can also take inspiration from [Beautiful Makie](https://lazarusa.github.io/BeautifulMakie/). 
+[Theming](https://makie.juliaplots.org/stable/documentation/theming/predefined_themes/) is done using Makie.jl. You can also take inspiration from [Beautiful Makie](https://lazarusa.github.io/BeautifulMakie/). 
 ```@example abc
 get(BestTrack, :ibtracs) # download the IBTrACS Best Track
 data = load(BestTrack, :ibtracs);
@@ -227,10 +227,10 @@ a5.ylabelpadding = 15;
 f5
 ```
 !!! tip "Theming"
-    Other arguments for theming the `countrystyle` is available using `Makie.lines` arguments. This is true for `landstyle` and track styles as specified by the `lines!` function above.
+    Other arguments for theming the `countrystyle` is available using `Makie.lines` arguments. This is true for `landstyle` as well, and the track styles are also specified inside the `lines!` function above.
 
 ## Map Projection
-Bagyo.jl uses two main projections, the [Gall Stereographic](https://en.wikipedia.org/wiki/Gall_stereographic_projection) specified by `:gall` symbol, and the [Stereographic](https://en.wikipedia.org/wiki/Stereographic_projection#:~:text=In%20geometry%2C%20the%20stereographic%20projection,mapping%20is%20smooth%20and%20bijective.) specified by `:stere`. Although you can explore other projections like Cassini projection, it is mainly based on the [Proj Project](https://proj.org/operations/projections/index.html). Also it is further limited to those projection that supports `lon_0` and `lat_0` parameters.
+Bagyo.jl uses two main projections, the [Gall Stereographic](https://en.wikipedia.org/wiki/Gall_stereographic_projection) specified by `:gall` symbol, and the [Stereographic](https://en.wikipedia.org/wiki/Stereographic_projection#:~:text=In%20geometry%2C%20the%20stereographic%20projection,mapping%20is%20smooth%20and%20bijective.) specified by `:stere`. Although you can explore other projections like [Cassini projection](https://en.wikipedia.org/wiki/Cassini_projection), it is mainly based on the [Proj Project](https://proj.org/operations/projections/index.html). Also available projections are further constrained to those projections that supports `lon_0` and `lat_0` parameters.
 ```@example abc
 get(BestTrack, :ibtracs) # download the IBTrACS Best Track
 data = load(BestTrack, :ibtracs);
