@@ -104,6 +104,7 @@ a1.xlabelpadding = -30;
 a1.ylabelpadding = 15;
 f1
 ```
+
 !!! note Note
     To run the above code, you need to install the Colors.jl and Makie.jl as follows:
 	```julia
@@ -111,8 +112,10 @@ f1
 	Pkg.add("Colors")
 	Pkg.add("Makie")
 	```
+
 !!! note Note
     The code `get(BestTrack, :jma)` downloads the JMA Best Track data from the JMA website. Once downloaded, succeeding run will skip this.
+	
 !!! note Note
     First time plot of the target country, in this case, the Philippines (specified by `PHL()` in the `plot` function), downloads the polygon for this country. Once downloaded, succeeding run will skip this.
 
@@ -138,6 +141,7 @@ a2.ylabelpadding = 15;
 a2.xlabelpadding = -30;
 f2
 ```
+
 !!! warning "Countries' Climate Boundaries"
     The climate boundary above are not official, except for the Philippines. The rest of the climate boundaries of other countries were subjectively provided. Users can specify this, see example in [Zooming to Countries' Climate Boundary](https://alstat.github.io/Bagyo.jl/dev/vis/#Zooming-to-Countries'-Climate-Boundary).
 
@@ -187,6 +191,7 @@ a4.xlabelpadding = -25;
 a4.ylabelpadding = 15;
 f4
 ```
+
 !!! note "Country Geodata Specification"
     The specification of the geodata for the `PHL` above is also available for other countries available for plotting in Bagyo.jl
 
@@ -225,6 +230,7 @@ a5.xlabelpadding = -25;
 a5.ylabelpadding = 15;
 f5
 ```
+
 !!! tip "Theming"
     Other arguments for theming the `countrystyle` is available using `Makie.lines` arguments. This is true for `landstyle` and track styles as specified by the `lines!` function above.
 
