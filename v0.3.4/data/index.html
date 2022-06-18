@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Data Extraction · Bagyo.jl</title><script data-outdated-warner src="../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.044/juliamono.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.11/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../assets/documenter.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../assets/themeswap.js"></script><link href="../assets/favicon.ico" rel="icon" type="image/x-icon"/></head><body><div id="documenter"><nav class="docs-sidebar"><a class="docs-logo" href="../"><img class="docs-light-only" src="../assets/logo.svg" alt="Bagyo.jl logo"/><img class="docs-dark-only" src="../assets/logo-dark.svg" alt="Bagyo.jl logo"/></a><div class="docs-package-name"><span class="docs-autofit"><a href="../">Bagyo.jl</a></span></div><form class="docs-search" action="../search/"><input class="docs-search-query" id="documenter-search-query" name="q" type="text" placeholder="Search docs"/></form><ul class="docs-menu"><li><a class="tocitem" href="../">Home</a></li><li class="is-active"><a class="tocitem" href>Data Extraction</a><ul class="internal"><li><a class="tocitem" href="#Downloading"><span>Downloading</span></a></li><li><a class="tocitem" href="#Loading"><span>Loading</span></a></li><li><a class="tocitem" href="#Deleting"><span>Deleting</span></a></li></ul></li><li><a class="tocitem" href="../vis/">Data Visualization</a></li><li><a class="tocitem" href="../api/">API</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href>Data Extraction</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Data Extraction</a></li></ul></nav><div class="docs-right"><a class="docs-edit-link" href="https://github.com/alstat/Bagyo.jl/blob/master/docs/src/data.md" title="Edit on GitHub"><span class="docs-icon fab"></span><span class="docs-label is-hidden-touch">Edit on GitHub</span></a><a class="docs-settings-button fas fa-cog" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-sidebar-button fa fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a></div></header><article class="content" id="documenter-page"><h1 id="Best-Track-Data"><a class="docs-heading-anchor" href="#Best-Track-Data">Best Track Data</a><a id="Best-Track-Data-1"></a><a class="docs-heading-anchor-permalink" href="#Best-Track-Data" title="Permalink"></a></h1><p>This section will discuss the process of downloading and loading Best Track data both from JMA and IBTrACS.</p><h2 id="Downloading"><a class="docs-heading-anchor" href="#Downloading">Downloading</a><a id="Downloading-1"></a><a class="docs-heading-anchor-permalink" href="#Downloading" title="Permalink"></a></h2><p>To download the JMA Best Track data, simply run the following:</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; using Bagyo</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; get(BestTrack, :jma)</code><code class="nohighlight hljs ansi" style="display:block;">┌ Info: Downloading
+│   source = &quot;https://www.jma.go.jp/jma/jma-eng/jma-center/rsmc-hp-pub-eg/Besttracks/bst_all.zip&quot;
+│   dest = &quot;/home/runner/work/Bagyo.jl/Bagyo.jl/src/../db/jma/bt/bst_all.zip&quot;
+│   progress = 1.0
+│   time_taken = &quot;0.08 s&quot;
+│   time_remaining = &quot;0.0 s&quot;
+│   average_speed = &quot;8.927 MiB/s&quot;
+│   downloaded = &quot;722.181 KiB&quot;
+│   remaining = &quot;0 bytes&quot;
+└   total = &quot;722.181 KiB&quot;
+[ Info: Unzipping file
+[ Info: Zip file path /home/runner/work/Bagyo.jl/Bagyo.jl/src/../db/jma/bt/bst_all.txt
+[ Info: Deleting zip file
+[ Info: Parsing raw data
+[ Info: Saving cleaned data
+&quot;/home/runner/work/Bagyo.jl/Bagyo.jl/src/../db/jma/bt/track_data.csv&quot;</code></pre><p>As for IBTrACS, replace <code>:jma</code> with <code>:ibtracs</code>:</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; get(BestTrack, :ibtracs)</code><code class="nohighlight hljs ansi" style="display:block;">┌ Info: Downloading
+│   source = &quot;https://www.ncei.noaa.gov/data/international-best-track-archive-for-climate-stewardship-ibtracs/v04r00/access/csv/ibtracs.WP.list.v04r00.csv&quot;
+│   dest = &quot;/home/runner/work/Bagyo.jl/Bagyo.jl/src/../db/ibtracs/bt/bst_all.csv&quot;
+│   progress = 0.436
+│   time_taken = &quot;1.0 s&quot;
+│   time_remaining = &quot;1.29 s&quot;
+│   average_speed = &quot;45.556 MiB/s&quot;
+│   downloaded = &quot;45.601 MiB&quot;
+│   remaining = &quot;58.993 MiB&quot;
+└   total = &quot;104.594 MiB&quot;
+┌ Info: Downloading
+│   source = &quot;https://www.ncei.noaa.gov/data/international-best-track-archive-for-climate-stewardship-ibtracs/v04r00/access/csv/ibtracs.WP.list.v04r00.csv&quot;
+│   dest = &quot;/home/runner/work/Bagyo.jl/Bagyo.jl/src/../db/ibtracs/bt/bst_all.csv&quot;
+│   progress = 0.8998
+│   time_taken = &quot;2.0 s&quot;
+│   time_remaining = &quot;0.22 s&quot;
+│   average_speed = &quot;47.008 MiB/s&quot;
+│   downloaded = &quot;94.109 MiB&quot;
+│   remaining = &quot;10.485 MiB&quot;
+└   total = &quot;104.594 MiB&quot;
+┌ Info: Downloading
+│   source = &quot;https://www.ncei.noaa.gov/data/international-best-track-archive-for-climate-stewardship-ibtracs/v04r00/access/csv/ibtracs.WP.list.v04r00.csv&quot;
+│   dest = &quot;/home/runner/work/Bagyo.jl/Bagyo.jl/src/../db/ibtracs/bt/bst_all.csv&quot;
+│   progress = 1.0
+│   time_taken = &quot;2.22 s&quot;
+│   time_remaining = &quot;0.0 s&quot;
+│   average_speed = &quot;47.051 MiB/s&quot;
+│   downloaded = &quot;104.594 MiB&quot;
+│   remaining = &quot;0 bytes&quot;
+└   total = &quot;104.594 MiB&quot;
+&quot;/home/runner/work/Bagyo.jl/Bagyo.jl/src/../db/ibtracs/bt/bst_all.csv&quot;</code></pre><p>Bagyo.jl only downloads the Western-North Pacific data of IBTrACS.</p><h2 id="Loading"><a class="docs-heading-anchor" href="#Loading">Loading</a><a id="Loading-1"></a><a class="docs-heading-anchor-permalink" href="#Loading" title="Permalink"></a></h2><p>To load the JMA Best Track data, run the following:</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; meta, data = load(BestTrack, :jma);</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; meta</code><code class="nohighlight hljs ansi" style="display:block;">1856×7 DataFrame
+  Row │ INTERNATIONAL_ID  NUMBER_OF_LINES  CYCLONE_NUMBER  LAST_FLAG  TIME_DIF ⋯
+      │ Int64             Int64            Int64?          Int64      Missing  ⋯
+──────┼─────────────────────────────────────────────────────────────────────────
+    1 │             5101               10         missing          0    missin ⋯
+    2 │             5102               37         missing          0    missin
+    3 │             5103               36         missing          0    missin
+    4 │             5104               66         missing          0    missin
+    5 │             5105               45         missing          1    missin ⋯
+    6 │             5106               29         missing          0    missin
+    7 │             5107               34         missing          1    missin
+    8 │             5108               17         missing          0    missin
+  ⋮   │        ⋮                 ⋮               ⋮             ⋮          ⋮    ⋱
+ 1850 │             2116               57              23          1    missin ⋯
+ 1851 │             2117               24              24          0    missin
+ 1852 │             2118               31              25          0    missin
+ 1853 │             2119               42              26          1    missin
+ 1854 │             2120               39              27          1    missin ⋯
+ 1855 │             2121               23              28          0    missin
+ 1856 │             2122               39              29          0    missin
+                                                 3 columns and 1841 rows omitted</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; data</code><code class="nohighlight hljs ansi" style="display:block;">67891×19 DataFrame
+   Row │ INTERNATIONAL_ID  DATE_TIME            YEAR   MONTH  DAY    HOUR   ST ⋯
+       │ Int64             DateTime             Int64  Int64  Int64  Int64  St ⋯
+───────┼────────────────────────────────────────────────────────────────────────
+     1 │             5101  1951-02-19T06:00:00   1951      2     19      6  mi ⋯
+     2 │             5101  1951-02-19T12:00:00   1951      2     19     12  mi
+     3 │             5101  1951-02-19T18:00:00   1951      2     19     18  mi
+     4 │             5101  1951-02-20T00:00:00   1951      2     20      0  mi
+     5 │             5101  1951-02-20T06:00:00   1951      2     20      6  mi ⋯
+     6 │             5101  1951-02-20T12:00:00   1951      2     20     12  mi
+     7 │             5101  1951-02-20T18:00:00   1951      2     20     18  mi
+     8 │             5101  1951-02-21T00:00:00   1951      2     21      0  mi
+   ⋮   │        ⋮                   ⋮             ⋮      ⋮      ⋮      ⋮       ⋱
+ 67885 │             2122  2021-12-19T18:00:00   2021     12     19     18  RA ⋯
+ 67886 │             2122  2021-12-20T00:00:00   2021     12     20      0  RA
+ 67887 │             2122  2021-12-20T06:00:00   2021     12     20      6  RA
+ 67888 │             2122  2021-12-20T12:00:00   2021     12     20     12  RA
+ 67889 │             2122  2021-12-20T18:00:00   2021     12     20     18  RA ⋯
+ 67890 │             2122  2021-12-21T00:00:00   2021     12     21      0  RA
+ 67891 │             2122  2021-12-21T06:00:00   2021     12     21      6  RA
+                                               13 columns and 67876 rows omitted</code></pre><p>Note that JMA returns two datasets, the <code>meta</code>data which contains the information about the storm, and the corresponding <code>data</code> of the storm tracks. For the description of the columns, please refer to <a href="https://www.jma.go.jp/jma/jma-eng/jma-center/rsmc-hp-pub-eg/Besttracks/e_format_bst.html">JMA documentation</a>.</p><p>As for IBTrACS, there is only one data containing all the information about the cyclone.</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; data = load(BestTrack, :ibtracs);</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; data</code><code class="nohighlight hljs ansi" style="display:block;">240845×163 DataFrame
+    Row │ SID            SEASON  NUMBER  BASIN    SUBBASIN  NAME       ISO_TIM ⋯
+        │ String15       Int64   Int64   String3  String3   String31   String3 ⋯
+────────┼───────────────────────────────────────────────────────────────────────
+      1 │ 1884177N17124    1884      14  WP       MM        NOT_NAMED  1884-06 ⋯
+      2 │ 1884177N17124    1884      14  WP       MM        NOT_NAMED  1884-06
+      3 │ 1884177N17124    1884      14  WP       MM        NOT_NAMED  1884-06
+      4 │ 1884177N17124    1884      14  WP       MM        NOT_NAMED  1884-06
+      5 │ 1884177N17124    1884      14  WP       MM        NOT_NAMED  1884-06 ⋯
+      6 │ 1884177N17124    1884      14  WP       MM        NOT_NAMED  1884-06
+      7 │ 1884177N17124    1884      14  WP       MM        NOT_NAMED  1884-06
+      8 │ 1884177N17124    1884      14  WP       MM        NOT_NAMED  1884-06
+   ⋮    │       ⋮          ⋮       ⋮        ⋮        ⋮          ⋮              ⋱
+ 240839 │ 2022099N11127    2022      23  WP       MM        MEGI       2022-04 ⋯
+ 240840 │ 2022099N11127    2022      23  WP       MM        MEGI       2022-04
+ 240841 │ 2022099N11127    2022      23  WP       MM        MEGI       2022-04
+ 240842 │ 2022099N11127    2022      23  WP       MM        MEGI       2022-04
+ 240843 │ 2022099N11127    2022      23  WP       MM        MEGI       2022-04 ⋯
+ 240844 │ 2022099N11127    2022      23  WP       MM        MEGI       2022-04
+ 240845 │ 2022099N11127    2022      23  WP       MM        MEGI       2022-04
+                                             157 columns and 240830 rows omitted</code></pre><p>Please refer to <a href="https://www.ncei.noaa.gov/sites/default/files/2021-07/IBTrACS_v04_column_documentation.pdf">IBTrACS documentation</a> for the description of the columns of the data above.</p><h2 id="Deleting"><a class="docs-heading-anchor" href="#Deleting">Deleting</a><a id="Deleting-1"></a><a class="docs-heading-anchor-permalink" href="#Deleting" title="Permalink"></a></h2><p>The downloaded data are saved in the local directory of your machine, and the following APIs helps on managing this data, in particular for deleting the said data.</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; # delete only the Best Track of JMA Data
+       delete!(BestTrack, :jma)</code><code class="nohighlight hljs ansi" style="display:block;">[ Info: JMA Best Track DB successfully deleted.</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; # delete all JMA Data folders and files
+       delete!(:jma)</code><code class="nohighlight hljs ansi" style="display:block;">[ Info: JMA DB successfully deleted.</code></pre><p>For IBTrACS,</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; # delete only the Best Track of IBTrACS Data
+       delete!(BestTrack, :ibtracs)</code><code class="nohighlight hljs ansi" style="display:block;">[ Info: IBTrACS Best Track DB successfully deleted.</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; # delete all IBTrACS Data folders and files
+       delete!(:ibtracs)</code><code class="nohighlight hljs ansi" style="display:block;">[ Info: IBTrACS DB successfully deleted.</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../">« Home</a><a class="docs-footer-nextpage" href="../vis/">Data Visualization »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.19 on <span class="colophon-date" title="Saturday 18 June 2022 06:50">Saturday 18 June 2022</span>. Using Julia version 1.7.3.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
