@@ -7,7 +7,8 @@ include("tracks_data.jl")
 include("vis.jl")
 include("poly_data.jl")
 
-export delete!, load, get, plot, lines!
+export delete!, load, plot, lines!
+import Base: get
 export AbstractCountry, BestTrack, CountryPoly
 export BRN, CHN, JPN, KHM, KOR, LAO, MMR, MYS, PHL, PRK, RUS, THA, TWN, VNM
 export BRN_AR_LON, CHN_AR_LON, JPN_AR_LON, KHM_AR_LON, KOR_AR_LON, LAO_AR_LON, 

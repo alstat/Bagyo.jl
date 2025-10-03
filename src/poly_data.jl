@@ -1,4 +1,4 @@
-using HTTP
+using Downloads
 
 struct CountryPoly
     data::Symbol
@@ -56,7 +56,7 @@ function download_poly(poly_folder::String, poly_url::String, poly_name::String)
         try
             mkdir(poly_folder)
         catch end
-        HTTP.download(poly_url, joinpath(poly_folder, poly_name))
+        Downloads.download(poly_url, joinpath(poly_folder, poly_name))
     end
 end
 

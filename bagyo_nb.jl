@@ -24,7 +24,7 @@ end;
 get(BestTrack, :ibtracs) # download the JMA Best Track, Bagyo.jl automatically skips this if data previously downloaded already
 data = load(BestTrack, :ibtracs)
 using DataFrames
-track = DataFrame(); 
+track = DataFrame();
 idcs = unique(data[!, :SID])
 i = 1
 track = filter(x -> x.SID === idcs[i], data)
@@ -60,7 +60,7 @@ country = PHL(
 	(0, 28), # set the latitude limits of the map
 	(PHL_AR_LON, PHL_AR_LAT) # add the tuples of arrays for the
 							 # longitude and latitude of the climate area monitored
-)	
+)
 f4, a4 = with_theme(theme_dark(), resolution=(770, 650)) do
 	plot(country, :gall);
 end;
@@ -81,9 +81,9 @@ country = PHL(
 	(0, 28), # set the latitude limits of the map
 	(PHL_AR_LON, PHL_AR_LAT) # add the tuples of arrays for the
 							 # longitude and latitude of the climate area monitored
-)	
+)
 f5, a5 = with_theme(theme_light(), resolution=(770, 650)) do
-	plot(country, :gall; 
+	plot(country, :gall;
 	countrystyle = (
 		color=colorant"#32a836", # color of the lands of the target country
 		strokecolor=:gray, # color of the coastlines of the target country
